@@ -17,7 +17,7 @@ public class PPE2MainController extends Game {
 	private Sprite sprite;
 	
 	@Override
-	public void create() {		
+	public void create() {
 		/*float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
