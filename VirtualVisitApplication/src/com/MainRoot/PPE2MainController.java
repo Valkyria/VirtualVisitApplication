@@ -14,7 +14,7 @@ public class PPE2MainController extends Game {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Texture texture;
-	private Sprite sprite, sp2, sp3;
+	private Sprite sprite, sp2, sp3, sp4;
 	
 	@Override
 	public void create() {
