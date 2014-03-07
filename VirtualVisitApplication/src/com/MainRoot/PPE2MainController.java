@@ -14,7 +14,7 @@ public class PPE2MainController extends Game {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Texture texture;
-	private Sprite sprite;
+	private Sprite sprite, sp2;
 	
 	@Override
 	public void create() {
@@ -39,6 +39,7 @@ public class PPE2MainController extends Game {
 	public void dispose() {
 		batch.dispose();
 		texture.dispose();
+		
 	}
 
 	@Override
