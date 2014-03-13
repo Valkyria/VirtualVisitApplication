@@ -1,6 +1,6 @@
 package com.MainRoot.client;
 
-import com.MainRoot.PPE2MainController;
+import com.MainRoot.VVAMain;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -14,6 +14,6 @@ public class GwtLauncher extends GwtApplication {
 
 	@Override
 	public ApplicationListener getApplicationListener () {
-		return new PPE2MainController();
+		return new VVAMain();
 	}
 }
