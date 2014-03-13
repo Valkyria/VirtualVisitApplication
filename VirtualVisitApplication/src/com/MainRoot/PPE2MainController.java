@@ -9,6 +9,10 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+//https://dpk.net/2011/05/01/libgdx-box2d-tiled-maps-full-working-example-part-1/
 
 public class PPE2MainController extends Game {
 	private OrthographicCamera camera;
@@ -32,6 +36,10 @@ public class PPE2MainController extends Game {
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		
+		Texture.setEnforcePotImages(false);
+		TiledMap map = new TmxMapLoader().load("data/map/map.tmx");
+		
 	}
 
 	@Override

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Tilesheet_by_chimcharsfireworkd" tilewidth="16" tileheight="16" spacing="1" margin="1">
+  <image source="Tilesheet_by_chimcharsfireworkd.png" width="2738" height="1684"/>
+ </tileset>
+ <layer name="terran" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJyzMGFgsKAytgRiCTMEprb5o3aM2jFqBwQX6g8Pf4zaMWrHqB2jdozaQbodAI7+/zA=
+  </data>
+ </layer>
+ <layer name="Calque de Tile 1" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJytlUlSAkEQRT803MBho6icQGjQEDZ6AecTeAWHjXoHh4268gDOrhW9gnOod3AOdeevQAOizKwq0B/xVmTVS7KzAahlswQ1Uz1Vilmgj/Rn9dqtXv0zlyPKVrki1+SmAcdgucZQWT8nZSkPLJMVsprXHX9JLgbyJCaFOMyh9aXljPeekwtyGejQ+tLc0wVghsySuUKYQ+tLc7cUgVbSRtqLYQ6tL82txeXQ+tLczTgadf+nwxVpH4zjPQF8kM+Ev95kn2cOyKHQn7QPxrGWBNbJRtJfbzKeAybIZO63Q9oH4xiIgBIpR/56kxfe/UreBIe0D8Zxy7vvyH3kr/dF2gfjmE8BC2Qx5a+3s83zO2SX7Cn7YxwdaaCTZNJhvdZnmPMaIaNkTJjdj+OIdx+TiuCwd8ju+4H3PpIn8uxwuGLvUEjfjTrsHbL7dr0roQ5fXO+Ky2HPPMP/6i7SLfxn139Pbcckhz3zCu8+IaffDm0+2rOSHL5d0eajnWvmebh+S6TYji8L9LNE
+  </data>
+ </layer>
+ <layer name="colisions" width="25" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzVlcsNwDAIQ5mp03T/SaoeonJoDBjy8zFgvyAUReTTfUlXb63VUZ+VNYrRvDrDK+SNZlUyojNVMqLnpzGQGIauZxiov2oORtbs3v5ZDHaHuzF6msFA7KzfytiB8bdv5t2uZlT4PXOgu7MMncn8hVGG915RhqXMzh9Glll9
+  </data>
+ </layer>
+ <objectgroup name="Calque d'objets 1" width="25" height="25">
+  <object x="257" y="96" width="14" height="14"/>
+  <object x="273" y="225" width="13" height="13"/>
+  <object x="65" y="241" width="13" height="13"/>
+  <object x="161" y="144" width="14" height="14"/>
+  <object x="81" y="337" width="45" height="31"/>
+ </objectgroup>
+</map>
