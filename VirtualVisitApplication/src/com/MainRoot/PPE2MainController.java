@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 //https://dpk.net/2011/05/01/libgdx-box2d-tiled-maps-full-working-example-part-1/
 
@@ -19,6 +20,7 @@ public class PPE2MainController extends Game {
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite, sp2, sp3, sp4;
+	private OrthogonalTiledMapRenderer mapRenderer;
 	
 	@Override
 	public void create() {
@@ -39,6 +41,8 @@ public class PPE2MainController extends Game {
 		
 		Texture.setEnforcePotImages(false);
 		TiledMap map = new TmxMapLoader().load("data/map/map.tmx");
+		mapRenderer = new OrthogonalTiledMapRenderer(map);
+		map.getTileSets();
 		
 	}
 
@@ -58,10 +62,19 @@ public class PPE2MainController extends Game {
 		batch.begin();
 		sprite.draw(batch);
 		batch.end();
+		
+		mapRenderer.setView(camera);
+		mapRenderer.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		camera.viewportHeight = height;
+		camera.viewportWidth = width;
+
+		camera.position.y=300;
+		camera.position.x=300;
+		camera.update();
 	}
 
 	@Override
