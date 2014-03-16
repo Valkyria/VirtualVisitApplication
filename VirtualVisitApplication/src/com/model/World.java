@@ -11,7 +11,7 @@ public class World {
 	private TiledMap map;
 	private Player player;
 	private MapLayer collision;
-	//colision
+	
 	public TiledMap getMap() {
 		return map;
 	}
