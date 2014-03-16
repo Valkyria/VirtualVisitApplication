@@ -15,8 +15,8 @@ public class WorldRenderer {
 	 * Comme on utilise mapRenderer, on est obligé de multiplier par 32 la taille de la camera.
 	 * Lorsqu'on dessinera nous même les layers, il faudra utiliser juste les valeurs 10 et 7, et les ppuX et les ppuY.
 	 */
-	private static final float CAMERA_WIDTH = (16*10); //Ici on décide du nombre de tiles affichées à l'écran.
-	private static final float CAMERA_HEIGHT = (16*7); //Dans ce cas, on affiche 10*7 tiles.
+	private static final float CAMERA_WIDTH = (16*20); //Ici on décide du nombre de tiles affichées à l'écran.
+	private static final float CAMERA_HEIGHT = (16*14); //Dans ce cas, on affiche 10*7 tiles.
 	
 	private World world;
 	private OrthographicCamera cam;
