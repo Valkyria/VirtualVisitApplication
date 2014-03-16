@@ -46,19 +46,20 @@ public class WorldRenderer {
 		//On dessine la map grâce à la methode de mapRenderer.
 		//Decoupage des layers et placement du perso entre les couches
 		
+		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		cam.update();
 		mapRenderer.setView(cam);
 		
-		// affichage des couches inferieures par (index)
+		// affichage des couches inferieures (par index)
 		mapRenderer.render(new int[]{0,1,2});
 
 		// affichage du perso
 		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
-		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
+		
 		batch.end();
 
-		// affichage de la couche supperieure par (index)
+		// affichage de la couche supperieure (par index)
 		mapRenderer.render(new int[]{3});
 	}
 
