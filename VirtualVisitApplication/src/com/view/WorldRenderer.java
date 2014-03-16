@@ -3,6 +3,7 @@ package com.view;
 import com.model.World;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -20,6 +21,7 @@ public class WorldRenderer {
 	private World world;
 	private OrthographicCamera cam;
 	private OrthogonalTiledMapRenderer mapRenderer;
+	private SpriteBatch batch;
 	
 	private int width;
 	private int height;
@@ -32,20 +34,32 @@ public class WorldRenderer {
 		//float w = Gdx.graphics.getWidth();
 		//float h = Gdx.graphics.getHeight();
 		//cam = new OrthographicCamera(1, h/w);
+		
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
 		this.cam.update();
 		this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap());
+		this.batch = new SpriteBatch();
 	}
 	
 	public void render(){
 		//On dessine la map grâce à la methode de mapRenderer.
-		//Lorsqu'on voudra dessiner le joueur au milieu des différents layers,
-		//il faudra décomposer la méthode et dessiner les layers soi-même.
-		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
+		//Decoupage des layers et placement du perso entre les couches
+		
 		cam.update();
 		mapRenderer.setView(cam);
-		mapRenderer.render();
+		
+		// affichage des couches inferieures par (index)
+		mapRenderer.render(new int[]{0,1,2});
+
+		// affichage du perso
+		batch.setProjectionMatrix(cam.combined);
+		batch.begin();
+		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
+		batch.end();
+
+		// affichage de la couche supperieure par (index)
+		mapRenderer.render(new int[]{3});
 	}
 
 	public void setSize(int width, int height) {
