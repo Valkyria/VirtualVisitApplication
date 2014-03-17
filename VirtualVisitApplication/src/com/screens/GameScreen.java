@@ -22,7 +22,7 @@ import com.model.World;
 import com.view.WorldRenderer;
 
 /**
- * @author Pollux
+ * @author Ligier, Tran-Van-Loc
  *
  */
 public class GameScreen implements Screen, InputProcessor {
@@ -46,7 +46,6 @@ public class GameScreen implements Screen, InputProcessor {
 		renderer = new WorldRenderer(world);
 		playerController = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
-
 	}
 	
 	/* 

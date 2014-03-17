@@ -1,5 +1,6 @@
 package com.model;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
@@ -20,12 +21,27 @@ public class Player {
 	Direction direction = Direction.FACING_UP;
 	
 	private Vector2 position;
+	private Rectangle HitBox;
 	
 	public Player(Vector2 position){
 		this.position = position;
 	}
 	
+	//a appeler dans le player ctrler
+	public void SetPosition(Vector2 position){
+		this.position = position;
+		this.HitBox.setPosition(position);
+	}
+	
 	public Vector2 GetPosition(){
 		return position;
+	}
+	public void setHitBox(float width, float height, Vector2 position){
+		this.HitBox.width=width;
+		this.HitBox.height=height;
+		this.HitBox.setPosition(position);
+	}
+	public Rectangle getHitBox(){
+		return this.HitBox;
 	}
 }

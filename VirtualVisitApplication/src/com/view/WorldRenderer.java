@@ -1,6 +1,8 @@
 package com.view;
 
 import com.model.World;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -45,7 +47,6 @@ public class WorldRenderer {
 	public void render(){
 		//On dessine la map grâce à la methode de mapRenderer.
 		//Decoupage des layers et placement du perso entre les couches
-		
 		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		cam.update();
 		mapRenderer.setView(cam);
