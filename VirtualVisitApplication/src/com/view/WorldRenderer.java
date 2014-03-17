@@ -1,11 +1,15 @@
 package com.view;
 
+import com.model.Player;
+import com.model.Player.Direction;
+import com.model.Player.State;
 import com.model.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,21 +27,23 @@ public class WorldRenderer {
 	 */
 	private static final float CAMERA_WIDTH = (16*32); //Ici on décide du nombre de tiles affichées à l'écran.
 	private static final float CAMERA_HEIGHT = (16*18); //Dans ce cas, on affiche 10*7 tiles.
-	private static final float WALKING_FRAME_DURATION = 0.06f;
+	private static final float WALKING_FRAME_DURATION = 0.1f;
 	
 	private World world;
 	private OrthographicCamera cam;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	private SpriteBatch batch;
 	private AtlasRegion[] PlayerUpRegion, PlayerDwRegion, PlayerLeRegion, PlayerRiRegion;
-	private Animation PlayerUpAnimation, PlayerDwAnimation, PlayerLeAnimation, PlayerRiAnimation;
+	private Animation PlayerUpAnimation, PlayerDwAnimation, PlayerLeAnimation, PlayerRiAnimation, currentAnimation, 
+		PalyerUpStop, PalyerDwStop, PalyerLeStop, PalyerRiStop;
+	private Sprite currentSprite;
 	
 	private int width;
 	private int height;
 	//Ces deux valeurs n'ont aucun sens lorsqu'on utilise le mapRenderer.
 	private float ppuX;	// pixels par unité (par case) sur l'axe X
 	private float ppuY;	// pixels par unité (par case) sur l'axe Y
-	private float imgWidth, imgHeight;
+	private float imgWidth, imgHeight, StateTime;
 	public WorldRenderer(World world){
 		this.world = world;
 		//float w = Gdx.graphics.getWidth();
@@ -61,6 +67,7 @@ public class WorldRenderer {
 			PlayerUpRegion[i] = atlas.findRegion("up"+(i));
         }
 		PlayerUpAnimation = new Animation(WALKING_FRAME_DURATION, PlayerUpRegion);
+		PalyerUpStop =  new Animation(WALKING_FRAME_DURATION, atlas.findRegion("up1"));
 		
 		//Down
 		PlayerDwRegion = new AtlasRegion [4];
@@ -68,6 +75,7 @@ public class WorldRenderer {
 			PlayerDwRegion[i] = atlas.findRegion("dw"+(i));
         }
 		PlayerDwAnimation = new Animation(WALKING_FRAME_DURATION, PlayerDwRegion);
+		PalyerDwStop =  new Animation(WALKING_FRAME_DURATION, atlas.findRegion("dw1"));
 		
 		//Left
 		PlayerLeRegion = new AtlasRegion [4];
@@ -75,6 +83,7 @@ public class WorldRenderer {
 			PlayerLeRegion[i] = atlas.findRegion("le"+(i));
         }
 		PlayerLeAnimation = new Animation(WALKING_FRAME_DURATION, PlayerLeRegion);
+		PalyerLeStop =  new Animation(WALKING_FRAME_DURATION, atlas.findRegion("le1"));
 		
 		//Right
 		PlayerRiRegion = new AtlasRegion [4];
@@ -82,6 +91,7 @@ public class WorldRenderer {
 			PlayerRiRegion[i] = atlas.findRegion("ri"+(i));
         }
 		PlayerRiAnimation = new Animation(WALKING_FRAME_DURATION, PlayerRiRegion);
+		PalyerRiStop =  new Animation(WALKING_FRAME_DURATION, atlas.findRegion("ri1"));
 		
 		//HitBox size ! need test
 		imgWidth = PlayerRiAnimation.getKeyFrame(WALKING_FRAME_DURATION).getRegionHeight();
@@ -110,26 +120,35 @@ public class WorldRenderer {
 	}
 
 	private void drawChar() {
-		/*Bob bob = world.getBob();
-		bobFrame = bob.isFacingLeft() ? bobIdleLeft : bobIdleRight;
-		if(bob.getState().equals(State.WALKING)) {
-			bobFrame = bob.isFacingLeft() ? 
-				walkLeftAnimation.getKeyFrame(bob.getStateTime(), true) : 
-				walkRightAnimation.getKeyFrame(bob.getStateTime(), true);
-		} else if (bob.getState().equals(State.JUMPING)) {
-			if (bob.getVelocity().y > 0) {
-				bobFrame = bob.isFacingLeft() ? bobJumpLeft : bobJumpRight;
-			} else {
-				bobFrame = bob.isFacingLeft() ? bobFallLeft : bobFallRight;
-			}
+		Player player = world.getPlayer();
+		Direction direction = player.GetDirection();
+		State statut = player.GetStatus();
+		
+		if(direction == Direction.FACING_UP){
+			currentAnimation = statut == State.WALKING ? PlayerUpAnimation : PalyerUpStop;
 		}
-		spriteBatch.draw(bobFrame, 
-						 bob.getPosition().x * ppuX,
-						 bob.getPosition().y * ppuY, 
-						 Bob.SIZE * ppuX, 
-						 Bob.SIZE * ppuY);*/
+		if(direction == Direction.FACING_DOWN){
+			currentAnimation = statut == State.WALKING ? PlayerDwAnimation : PalyerDwStop;
+		}
+		if(direction == Direction.FACING_LEFT){
+			currentAnimation = statut == State.WALKING ? PlayerLeAnimation : PalyerLeStop;
+		}
+		if(direction == Direction.FACING_RIGHT){
+			currentAnimation = statut == State.WALKING ? PlayerRiAnimation : PalyerRiStop;
+		}
+		
+		currentSprite = new Sprite(currentAnimation.getKeyFrame(this.StateTime, true));
+		batch.draw(currentSprite, player.GetPosition().x, player.GetPosition().y);
+		
+		currentSprite.draw(batch);
 	}
 	
+	public void SetStateTime(float StateTime){
+		this.StateTime = StateTime;
+	}
+	public float GetStateTime(){
+		return this.StateTime;
+	}
 	public void setSize(int width, int height) {
 		this.width = width;
 		this.height = height;

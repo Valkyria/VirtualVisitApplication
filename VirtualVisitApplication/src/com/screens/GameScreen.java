@@ -31,6 +31,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private WorldRenderer renderer;
 	private PlayerController playerController;
 	private int width, height;
+	private float CurrentStateTime;
 	/* 
 	 * Appelé quand on veut afficher le screen pour la première fois.
 	 * Par exemple sous Android, quand on lance l'application, la methode show() est appelée, mais
@@ -57,6 +58,8 @@ public class GameScreen implements Screen, InputProcessor {
 		//On update l'état du joueur
 		playerController.update(delta);
 		//On redessine le monde (WorldRenderer a accès à la map et au joueur, il peut donc tout dessiner).
+		CurrentStateTime = renderer.GetStateTime();
+		renderer.SetStateTime( CurrentStateTime += Gdx.graphics.getDeltaTime());
 		renderer.render();
 	}
 

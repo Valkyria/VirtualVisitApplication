@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.model.Player;
+import com.model.Player.Direction;
+import com.model.Player.State;
 import com.model.World;
 
 /* Le contrôleur du joueur définit l'état de l'objet joueur en temps réel.
@@ -39,15 +41,19 @@ public class PlayerController {
 		 */
 		if (keys.get(Keys.RIGHT)){
 			player.GetPosition().set(player.GetPosition().x + 1, player.GetPosition().y);
+			player.SetDirection(Direction.FACING_RIGHT);
 		}
 		if (keys.get(Keys.LEFT)){
 			player.GetPosition().set(player.GetPosition().x - 1, player.GetPosition().y);
+			player.SetDirection(Direction.FACING_LEFT);
 		}
 		if (keys.get(Keys.UP)){
 			player.GetPosition().set(player.GetPosition().x, player.GetPosition().y + 1);
+			player.SetDirection(Direction.FACING_UP);
 		}
 		if (keys.get(Keys.DOWN)){
 			player.GetPosition().set(player.GetPosition().x, player.GetPosition().y - 1);
+			player.SetDirection(Direction.FACING_DOWN);
 		}
 		
 		//update de la hitBox + position dès qu'un mouvement est effectué, a améliorer: 
@@ -56,6 +62,11 @@ public class PlayerController {
 		//je recupere 2 vecteurs au lieu de deux floats
 		if (keys.get(Keys.RIGHT) || keys.get(Keys.LEFT) || keys.get(Keys.UP) || keys.get(Keys.DOWN)){
 			player.SetPosition(player.GetPosition());
+			player.SetStatus(State.WALKING);
+		}
+		else{
+			player.SetPosition(player.GetPosition());
+			player.SetStatus(State.IDLE);
 		}
 	}
 

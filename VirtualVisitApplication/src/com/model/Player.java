@@ -26,6 +26,8 @@ public class Player {
 	public Player(Vector2 position){
 		this.position = position;
 		this.HitBox = new Rectangle();
+		this.direction = Direction.FACING_DOWN;
+		this.state = State.IDLE;
 	}
 	
 	public void SetPosition(Vector2 position){
@@ -41,12 +43,19 @@ public class Player {
 	public Vector2 GetPosition(){
 		return position;
 	}
-	public void setHitBox(float width, float height, Vector2 position){
-		this.HitBox.width=width;
-		this.HitBox.height=height;
-		this.HitBox.setPosition(position);
-	}
 	public Rectangle getHitBox(){
 		return this.HitBox;
+	}
+	public void SetDirection(Direction direction){
+		this.direction = direction;
+	}
+	public Direction GetDirection(){
+		return this.direction;
+	}
+	public State GetStatus(){
+		return this.state;
+	}
+	public void SetStatus(State state){
+		this.state = state;
 	}
 }
