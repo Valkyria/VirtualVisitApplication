@@ -49,6 +49,14 @@ public class PlayerController {
 		if (keys.get(Keys.DOWN)){
 			player.GetPosition().set(player.GetPosition().x, player.GetPosition().y - 1);
 		}
+		
+		//update de la hitBox + position dès qu'un mouvement est effectué, a améliorer: 
+		//GetPosition() ne renvois pas distinctement un X et un Y mais un vecteur
+		//et vu que tu le set par player.GetPosition().x et player.GetPosition().y 
+		//je recupere 2 vecteurs au lieu de deux floats
+		if (keys.get(Keys.RIGHT) || keys.get(Keys.LEFT) || keys.get(Keys.UP) || keys.get(Keys.DOWN)){
+			player.SetPosition(player.GetPosition());
+		}
 	}
 
 	/*

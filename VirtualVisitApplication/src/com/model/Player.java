@@ -25,12 +25,17 @@ public class Player {
 	
 	public Player(Vector2 position){
 		this.position = position;
+		this.HitBox = new Rectangle();
 	}
 	
-	//a appeler dans le player ctrler
 	public void SetPosition(Vector2 position){
 		this.position = position;
 		this.HitBox.setPosition(position);
+	}
+	
+	public void SetPosition(float x, float y){
+		this.position.add(x, y);
+		this.HitBox.setPosition(x, y);
 	}
 	
 	public Vector2 GetPosition(){
