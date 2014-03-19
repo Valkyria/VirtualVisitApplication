@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.model.Player;
 import com.model.Player.Direction;
 import com.model.Player.State;
@@ -22,6 +23,7 @@ public class PlayerController {
 	
 	private World world;
 	private Player player;
+	private Vector2 newPosition;
 	
 	enum Keys {
 		LEFT, RIGHT, UP, DOWN
@@ -45,38 +47,52 @@ public class PlayerController {
 		/* Ici on va changer les propriétés de l'objet player en fonction
 		 * des inputs, des detections de collisions etc...
 		 */
+		this.newPosition = processInputs(); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
+		this.newPosition = processCollision(this.newPosition); //Gère les collisions pour empêcher le joueur de traverser les murs
+		world.setEventTouch(player); //Pourquoi ?
+		
+	}
+	
+	private Vector2 processCollision(Vector2 newPosition2) {
+		//TODO
+		return null;
+	}
+
+	private Vector2 processInputs(){
+		
 		if (keys.get(Keys.RIGHT)){
-			player.GetPosition().set(player.GetPosition().x + 1, player.GetPosition().y);
+			this.newPosition.set(player.GetPosition().x + 1, player.GetPosition().y);
 			player.SetDirection(Direction.FACING_RIGHT);
 		}
 		if (keys.get(Keys.LEFT)){
-			player.GetPosition().set(player.GetPosition().x - 1, player.GetPosition().y);
+			this.newPosition.set(player.GetPosition().x - 1, player.GetPosition().y);
 			player.SetDirection(Direction.FACING_LEFT);
 		}
 		if (keys.get(Keys.UP)){
-			player.GetPosition().set(player.GetPosition().x, player.GetPosition().y + 1);
+			this.newPosition.set(player.GetPosition().x, player.GetPosition().y + 1);
 			player.SetDirection(Direction.FACING_UP);
 		}
 		if (keys.get(Keys.DOWN)){
-			player.GetPosition().set(player.GetPosition().x, player.GetPosition().y - 1);
+			this.newPosition.set(player.GetPosition().x, player.GetPosition().y - 1);
 			player.SetDirection(Direction.FACING_DOWN);
 		}
 		
-		//update de la hitBox + position dès qu'un mouvement est effectué, a améliorer: 
-		//GetPosition() ne renvois pas distinctement un X et un Y mais un vecteur
+		//update de la hitBox + position dès qu'un mouvement est effectué, à améliorer: 
+		//GetPosition() ne renvoit pas distinctement un X et un Y mais un vecteur
 		//et vu que tu le set par player.GetPosition().x et player.GetPosition().y 
-		//je recupere 2 vecteurs au lieu de deux floats
+		//je recupère 2 vecteurs au lieu de deux floats
 		if (keys.get(Keys.RIGHT) || keys.get(Keys.LEFT) || keys.get(Keys.UP) || keys.get(Keys.DOWN)){
-			player.SetPosition(player.GetPosition());
+			player.SetPosition(player.GetPosition()); //Pourquoi ?
 			player.SetStatus(State.WALKING);
 		}
 		else{
-			player.SetPosition(player.GetPosition());
-			player.SetStatus(State.IDLE);
+			player.SetPosition(player.GetPosition()); //Pourquoi ?
+			player.SetStatus(State.IDLE); 
 		}
 		
-		world.setEventTouch(player);
-		
+		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
+		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
+		return this.newPosition;
 	}
 
 	/*
