@@ -29,19 +29,24 @@
   </data>
  </layer>
  <objectgroup name="events" width="50" height="50">
-  <object name="BigDoor" x="498" y="591" width="28" height="16">
+  <object name="BigDoor" type="panel" x="498" y="591" width="28" height="16">
    <properties>
     <property name="message" value="Ceci est le batiment principal"/>
    </properties>
   </object>
-  <object name="panel1" x="301" y="617" width="21" height="12">
+  <object name="panel1" type="panel" x="301" y="617" width="21" height="12">
    <properties>
     <property name="message" value="acces au village"/>
    </properties>
   </object>
-  <object name="benoit" x="400" y="720" width="17" height="15">
+  <object name="benoit" type="panel" x="400" y="720" width="17" height="15">
    <properties>
     <property name="message" value="mon nom est benoit"/>
+   </properties>
+  </object>
+  <object name="panel2" type="panel" x="604" y="426" width="25" height="11">
+   <properties>
+    <property name="message" value="vers le parking"/>
    </properties>
   </object>
  </objectgroup>

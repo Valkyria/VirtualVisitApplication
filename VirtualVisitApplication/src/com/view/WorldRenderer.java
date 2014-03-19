@@ -5,22 +5,21 @@ import com.model.Player.Direction;
 import com.model.Player.State;
 import com.model.World;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class WorldRenderer {
 	
@@ -31,7 +30,11 @@ public class WorldRenderer {
 	private static final float CAMERA_WIDTH = (16*32); //Ici on décide du nombre de tiles affichées à l'écran.
 	private static final float CAMERA_HEIGHT = (16*18); //Dans ce cas, on affiche 10*7 tiles.
 	private static final float WALKING_FRAME_DURATION = 0.1f;
-	
+	private static final float fontSize = 0.8f;
+	private static final String panel = "panel";
+	private static final String transition = "transition";
+	private static final HAlignment align = HAlignment.CENTER;
+			
 	private World world;
 	private OrthographicCamera cam;
 	private OrthogonalTiledMapRenderer mapRenderer;
@@ -41,14 +44,15 @@ public class WorldRenderer {
 		PalyerUpStop, PalyerDwStop, PalyerLeStop, PalyerRiStop;
 	private Sprite currentSprite;
 	private BitmapFont font;
-    private CharSequence lvl;
+
+	private MapObject currentObject;
 	
 	private int width;
 	private int height;
 	//Ces deux valeurs n'ont aucun sens lorsqu'on utilise le mapRenderer.
 	private float ppuX;	// pixels par unité (par case) sur l'axe X
 	private float ppuY;	// pixels par unité (par case) sur l'axe Y
-	private float imgWidth, imgHeight, StateTime;
+	private float imgWidth, imgHeight, StateTime, heightMessage, widthMessage;
 	
 	public WorldRenderer(World world){
 		this.world = world;
@@ -65,6 +69,10 @@ public class WorldRenderer {
 	}
 	
 	private void loadTextures() {
+		Skin skin = new Skin();
+		font = new BitmapFont();
+		font.setScale(fontSize);
+		font.setColor(Color.DARK_GRAY);
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/char/MainChar.atlas"));
 		
 		//Up
@@ -124,9 +132,12 @@ public class WorldRenderer {
 		// affichage de la couche supperieure (par index)
 		mapRenderer.render(new int[]{3});
 		
-		batch.begin();
-		this.drawText();
-		batch.end();
+		if(this.isColideEvent()){
+			batch.begin();
+			this.drawText();
+			batch.end();
+		}
+		
 	}
 
 	private void drawChar() {
@@ -154,15 +165,25 @@ public class WorldRenderer {
 	}
 	
 	private void drawText(){
-		MapProperties props = world.getCurrentObject().getProperties();
-		font = new BitmapFont();
-		if(world.getEventTouch()){
-			RectangleMapObject rectangleObject = (RectangleMapObject)(world.getCurrentObject());
+		MapProperties props = this.getCurrentObject().getProperties();
+			
+		if(props.get("type").toString().equals(panel)){
+			RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
+			heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).height;
+			widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).width;
+				
+			font.drawWrapped(batch, props.get("message").toString(),
+					rectangleObject.getRectangle().x - (widthMessage/2), 
+					rectangleObject.getRectangle().y+ (world.getPlayer().getHitBox().height*2)+heightMessage,
+					rectangleObject.getRectangle().width*5, align);
+				
+		}
+		
+		if(props.get("type").toString().equals(transition)){
+			RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
 			font.draw(batch, (String) props.get("message"), rectangleObject.getRectangle().x, rectangleObject.getRectangle().y);
 		}
-		//MapProperties props = world.getCurrentObject().getProperties();
-		//String msg = (String) props.get("message");
-		//System.out.println(msg);
+		
 	}
 	
 	public void SetStateTime(float StateTime){
@@ -176,5 +197,27 @@ public class WorldRenderer {
 		this.height = height;
 		this.ppuX = (float)width / CAMERA_WIDTH;
 		this.ppuY = (float)height / CAMERA_HEIGHT;
+	}
+	public MapObject getCurrentObject(){
+		return this.currentObject;
+	}
+	public void setCurrentObject(MapObject mapObj){
+		this.currentObject = mapObj;
+	}
+	public boolean isColideEvent() {
+		boolean isColidePlayer = false;
+		MapObject clearEvent = new MapObject();
+		this.setCurrentObject(clearEvent);
+		
+		for(MapObject objectEvent: this.world.getEventLayer().getObjects()) {
+			RectangleMapObject rectangleObject = (RectangleMapObject)(objectEvent);
+			Rectangle eventRectangle = rectangleObject.getRectangle();
+			if(this.world.getPlayer().getHitBox().overlaps(eventRectangle))
+			{
+				isColidePlayer = true;
+				this.setCurrentObject(objectEvent);
+			}
+		}
+		return isColidePlayer;
 	}
 }
