@@ -1,0 +1,26 @@
+
+bubble.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bubble_bot
+  rotate: false
+  xy: 0, 1
+  size: 119, 15
+  orig: 119, 15
+  offset: 0, 0
+  index: -1
+bubble_mid
+  rotate: false
+  xy: 0, 0
+  size: 119, 1
+  orig: 119, 1
+  offset: 0, 0
+  index: -1
+bubble_tot
+  rotate: false
+  xy: 119, 7
+  size: 119, 9
+  orig: 119, 9
+  offset: 0, 0
+  index: -1

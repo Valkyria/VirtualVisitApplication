@@ -5,7 +5,6 @@ import com.model.Player.Direction;
 import com.model.Player.State;
 import com.model.World;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,12 +13,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class WorldRenderer {
 	
@@ -44,6 +43,7 @@ public class WorldRenderer {
 		PalyerUpStop, PalyerDwStop, PalyerLeStop, PalyerRiStop;
 	private Sprite currentSprite;
 	private BitmapFont font;
+	private TextureRegion bubbleBot, bubbleTop, bubbleMid;
 
 	private MapObject currentObject;
 	
@@ -69,10 +69,14 @@ public class WorldRenderer {
 	}
 	
 	private void loadTextures() {
-		Skin skin = new Skin();
 		font = new BitmapFont();
 		font.setScale(fontSize);
-		font.setColor(Color.DARK_GRAY);
+		//font.setColor(Color.DARK_GRAY);
+		TextureAtlas bubbleAtlas = new TextureAtlas(Gdx.files.internal("data/map/tilesets/bubble.atlas"));
+		bubbleTop = bubbleAtlas.findRegion("bubble_tot");
+		bubbleBot = bubbleAtlas.findRegion("bubble_bot");
+		bubbleMid = bubbleAtlas.findRegion("bubble_mid");
+		
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("data/char/MainChar.atlas"));
 		
 		//Up
@@ -133,9 +137,13 @@ public class WorldRenderer {
 		mapRenderer.render(new int[]{3});
 		
 		if(this.isColideEvent()){
-			batch.begin();
-			this.drawText();
-			batch.end();
+			MapProperties props = this.getCurrentObject().getProperties();
+			if(props.get("type").toString().equals(panel)){
+				this.drawMessage(props);
+			}
+			if(props.get("type").toString().equals(transition)){
+				this.drawMessage(props);
+			}
 		}
 		
 	}
@@ -160,50 +168,68 @@ public class WorldRenderer {
 		
 		currentSprite = new Sprite(currentAnimation.getKeyFrame(this.StateTime, true));
 		batch.draw(currentSprite, player.GetPosition().x, player.GetPosition().y);
-		
-		currentSprite.draw(batch);
 	}
 	
-	private void drawText(){
-		MapProperties props = this.getCurrentObject().getProperties();
-			
-		if(props.get("type").toString().equals(panel)){
-			RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
-			heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).height;
-			widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).width;
-				
-			font.drawWrapped(batch, props.get("message").toString(),
-					rectangleObject.getRectangle().x - (widthMessage/2), 
-					rectangleObject.getRectangle().y+ (world.getPlayer().getHitBox().height*2)+heightMessage,
-					rectangleObject.getRectangle().width*5, align);
-				
-		}
+	private void drawMessage(MapProperties props){
+		RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
+		heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).height;
+		widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).width;
 		
-		if(props.get("type").toString().equals(transition)){
-			RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
-			font.draw(batch, (String) props.get("message"), rectangleObject.getRectangle().x, rectangleObject.getRectangle().y);
-		}
+		batch.begin();
+		this.drawBulle(props, rectangleObject);
+		this.drawText(props, rectangleObject);
+		batch.end();
+	}
+	public void drawBulle(MapProperties props, RectangleMapObject rectangleObject){
+		batch.draw(bubbleTop, 
+				rectangleObject.getRectangle().x-widthMessage/2,
+				rectangleObject.getRectangle().y+heightMessage + world.getPlayer().getHitBox().height*2,
+				rectangleObject.getRectangle().width*5,
+				heightMessage/3);
 		
+		batch.draw(bubbleMid, 
+				rectangleObject.getRectangle().x-widthMessage/2,
+				rectangleObject.getRectangle().y + world.getPlayer().getHitBox().height*1.5f+(heightMessage/3),
+				rectangleObject.getRectangle().width*5,
+				heightMessage*1.48f);
+		
+		
+		batch.draw(bubbleBot, 
+				rectangleObject.getRectangle().x-widthMessage/2,
+				rectangleObject.getRectangle().y+ world.getPlayer().getHitBox().height*1.5f,
+				rectangleObject.getRectangle().width*5, 
+				heightMessage/3);
+	}
+	public void drawText(MapProperties props, RectangleMapObject rectangleObject){
+		font.drawWrapped(batch, props.get("message").toString(),
+				rectangleObject.getRectangle().x - (widthMessage/2), 
+				rectangleObject.getRectangle().y+ (world.getPlayer().getHitBox().height*2)+heightMessage,
+				rectangleObject.getRectangle().width*5, align);
 	}
 	
 	public void SetStateTime(float StateTime){
 		this.StateTime = StateTime;
 	}
+	
 	public float GetStateTime(){
 		return this.StateTime;
 	}
+	
 	public void setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.ppuX = (float)width / CAMERA_WIDTH;
 		this.ppuY = (float)height / CAMERA_HEIGHT;
 	}
+	
 	public MapObject getCurrentObject(){
 		return this.currentObject;
 	}
+	
 	public void setCurrentObject(MapObject mapObj){
 		this.currentObject = mapObj;
 	}
+	
 	public boolean isColideEvent() {
 		boolean isColidePlayer = false;
 		MapObject clearEvent = new MapObject();
