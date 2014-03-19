@@ -28,4 +28,21 @@
    eJztlVEOwzAIQ3uGnWn3P9O++oMg2Ak46TakatNCwC+L6ft1Xe/GRxXVvZTabV97diMtdo05905G9fl13VHm7Jm8an9kTEyvU3w+6pWxMh5ic1bOwdMf7fOYMz07OOxvM3ECR8U9PoED7RnpzTiQ+8qyzOrPOEY9mHoV/kD0Mn2eyHGCPyINbL3d/ujm6IyMw8uN9Ea/n8Zh91X6fDWU80rljwqOE+YVw4Hq2cGxc151czB6Mw6VP6o4ol5MPdW9YpmVHEh9hoPRsRrV88ruUwVzpjs42BojfyD50Zo6qubVvcb0Qf2NzKHKefXnqOFA+q7GUzmy/5HhYPqhNWb7/Tn0Pv8FDo/L+46cQcSB7h1pQdatDpsX9ermyHQrg+2tvFer/mPyT4kun6s5lfNq1ufefq8ew5Hp7Aikrjcb70+GY2U+V0RFj5l7xrwHGQ1sfvTsikxXpdYZnyPv6m+KD+yDK2I=
   </data>
  </layer>
+ <objectgroup name="events" width="50" height="50">
+  <object name="BigDoor" x="498" y="591" width="28" height="16">
+   <properties>
+    <property name="message" value="Ceci est le batiment principal"/>
+   </properties>
+  </object>
+  <object name="panel1" x="301" y="617" width="21" height="12">
+   <properties>
+    <property name="message" value="acces au village"/>
+   </properties>
+  </object>
+  <object name="benoit" x="400" y="720" width="17" height="15">
+   <properties>
+    <property name="message" value="mon nom est benoit"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

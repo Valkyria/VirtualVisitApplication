@@ -3,6 +3,12 @@ package com.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
 import com.model.Player;
 import com.model.Player.Direction;
 import com.model.Player.State;
@@ -68,6 +74,9 @@ public class PlayerController {
 			player.SetPosition(player.GetPosition());
 			player.SetStatus(State.IDLE);
 		}
+		
+		world.setEventTouch(player);
+		
 	}
 
 	/*

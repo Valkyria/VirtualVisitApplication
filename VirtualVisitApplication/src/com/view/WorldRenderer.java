@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -37,6 +40,8 @@ public class WorldRenderer {
 	private Animation PlayerUpAnimation, PlayerDwAnimation, PlayerLeAnimation, PlayerRiAnimation, currentAnimation, 
 		PalyerUpStop, PalyerDwStop, PalyerLeStop, PalyerRiStop;
 	private Sprite currentSprite;
+	private BitmapFont font;
+    private CharSequence lvl;
 	
 	private int width;
 	private int height;
@@ -44,6 +49,7 @@ public class WorldRenderer {
 	private float ppuX;	// pixels par unité (par case) sur l'axe X
 	private float ppuY;	// pixels par unité (par case) sur l'axe Y
 	private float imgWidth, imgHeight, StateTime;
+	
 	public WorldRenderer(World world){
 		this.world = world;
 		//float w = Gdx.graphics.getWidth();
@@ -117,6 +123,10 @@ public class WorldRenderer {
 
 		// affichage de la couche supperieure (par index)
 		mapRenderer.render(new int[]{3});
+		
+		batch.begin();
+		this.drawText();
+		batch.end();
 	}
 
 	private void drawChar() {
@@ -141,6 +151,18 @@ public class WorldRenderer {
 		batch.draw(currentSprite, player.GetPosition().x, player.GetPosition().y);
 		
 		currentSprite.draw(batch);
+	}
+	
+	private void drawText(){
+		MapProperties props = world.getCurrentObject().getProperties();
+		font = new BitmapFont();
+		if(world.getEventTouch()){
+			RectangleMapObject rectangleObject = (RectangleMapObject)(world.getCurrentObject());
+			font.draw(batch, (String) props.get("message"), rectangleObject.getRectangle().x, rectangleObject.getRectangle().y);
+		}
+		//MapProperties props = world.getCurrentObject().getProperties();
+		//String msg = (String) props.get("message");
+		//System.out.println(msg);
 	}
 	
 	public void SetStateTime(float StateTime){
