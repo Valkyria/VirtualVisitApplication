@@ -20,7 +20,7 @@ public class PlayerController {
 	
 	private World world;
 	private Player player;
-	private Vector2 newPosition;
+	//private Vector2 newPosition;
 	private Rectangle collisionContainer;
 	
 	enum Keys {
@@ -39,7 +39,7 @@ public class PlayerController {
 	public PlayerController(World world){
 		this.world = world;
 		this.player = world.getPlayer();
-		this.newPosition = world.getPlayer().GetPosition();
+		//this.newPosition = world.getPlayer().GetPosition();
 		this.collisionContainer = new Rectangle();
 	}
 	
@@ -47,50 +47,49 @@ public class PlayerController {
 		/* Ici on va changer les propriétés de l'objet player en fonction
 		 * des inputs, des detections de collisions etc...
 		 */
-		this.newPosition = processInputs(); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
-		System.out.println("test");
-		/*if (this.newPosition.equals(player.GetPosition())){
-			this.newPosition = processCollision(this.newPosition); //Gère les collisions pour empêcher le joueur de traverser les murs
-			player.SetPosition(this.newPosition);
-			
-		}*/
+		Vector2 newPosition = new Vector2();
+		//this.newPosition = player.GetPosition();
+		newPosition = processInputs(); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
+		//System.out.println(player.GetPosition());
+		System.out.println(player.getHitBox().x + " " + player.getHitBox().y);
+		if (!newPosition.epsilonEquals(player.GetPosition(), 0.01f)){
+			newPosition = processCollision(newPosition); //Gère les collisions
+		}
+		player.SetPosition(newPosition);
+		
 		
 	}
 
 	private Vector2 processInputs(){
+		Vector2 position = new Vector2();
 		if (keys.get(Keys.RIGHT)){
-			this.newPosition.set(player.GetPosition().x + 1, player.GetPosition().y);
+			position.set(player.GetPosition().x + 1, player.GetPosition().y);
 			player.SetDirection(Direction.FACING_RIGHT);
 		}
 		if (keys.get(Keys.LEFT)){
-			this.newPosition.set(player.GetPosition().x - 1, player.GetPosition().y);
+			position.set(player.GetPosition().x - 1, player.GetPosition().y);
 			player.SetDirection(Direction.FACING_LEFT);
 		}
 		if (keys.get(Keys.UP)){
-			this.newPosition.set(player.GetPosition().x, player.GetPosition().y + 1);
+			position.set(player.GetPosition().x, player.GetPosition().y + 1);
 			player.SetDirection(Direction.FACING_UP);
 		}
 		if (keys.get(Keys.DOWN)){
-			this.newPosition.set(player.GetPosition().x, player.GetPosition().y - 1);
+			position.set(player.GetPosition().x, player.GetPosition().y - 1);
 			player.SetDirection(Direction.FACING_DOWN);
 		}
 		
-		//update de la hitBox + position dès qu'un mouvement est effectué, à améliorer: 
-		//GetPosition() ne renvoit pas distinctement un X et un Y mais un vecteur
-		//et vu que tu le set par player.GetPosition().x et player.GetPosition().y 
-		//je recupère 2 vecteurs au lieu de deux floats
+		
 		if (keys.get(Keys.RIGHT) || keys.get(Keys.LEFT) || keys.get(Keys.UP) || keys.get(Keys.DOWN)){
-			player.SetPosition(player.GetPosition()); //Pourquoi ?
 			player.SetStatus(State.WALKING);
 		}
 		else{
-			player.SetPosition(player.GetPosition()); //Pourquoi ?
-			player.SetStatus(State.IDLE); 
+			player.SetStatus(State.IDLE);
 		}
 		
 		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
 		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
-		return this.newPosition;
+		return position;
 	}
 	
 	private Vector2 processCollision(Vector2 testPosition){
@@ -98,16 +97,15 @@ public class PlayerController {
 		int tileSize = (Integer) this.world.getMap().getProperties().get("tilewidth");
 		this.collisionContainer.height = tileSize;
 		this.collisionContainer.width = tileSize;
-		System.out.println("process");
 		for (int i = (int)(testPosition.x/tileSize) - 1; i <= (int)(testPosition.x/tileSize) + 1; i++ ){
 			for (int j = (int)(testPosition.y/tileSize) - 1; j <= (int)(testPosition.y/tileSize) + 1; j++ ){
 				currentCell = ((TiledMapTileLayer)this.world.getColisionLayer()).getCell(i, j);
-				if(currentCell.getTile() != null){
+				if(currentCell != null){
 					this.collisionContainer.x = i*16;
 					this.collisionContainer.y = j*16;
 					if (player.getHitBox().overlaps(this.collisionContainer)){
 						testPosition = player.GetPosition();
-						System.out.println("Collision");
+						System.out.println("collision");
 					}
 				}
 			}
