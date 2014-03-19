@@ -82,7 +82,6 @@ public class GameScreen implements Screen, InputProcessor {
 	public void hide() {
 		//Arrête la surveillance des input quand l'appli est en arrière plan
 		Gdx.input.setInputProcessor(null);
-
 	}
 
 	/* (non-Javadoc)

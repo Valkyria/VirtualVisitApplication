@@ -3,11 +3,8 @@ package com.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.model.Player;
@@ -24,6 +21,7 @@ public class PlayerController {
 	private World world;
 	private Player player;
 	private Vector2 newPosition;
+	private Rectangle collisionContainer;
 	
 	enum Keys {
 		LEFT, RIGHT, UP, DOWN
@@ -41,6 +39,8 @@ public class PlayerController {
 	public PlayerController(World world){
 		this.world = world;
 		this.player = world.getPlayer();
+		this.newPosition = world.getPlayer().GetPosition();
+		this.collisionContainer = new Rectangle();
 	}
 	
 	public void update(float delta) {
@@ -48,18 +48,16 @@ public class PlayerController {
 		 * des inputs, des detections de collisions etc...
 		 */
 		this.newPosition = processInputs(); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
-		this.newPosition = processCollision(this.newPosition); //Gère les collisions pour empêcher le joueur de traverser les murs
-		world.setEventTouch(player); //Pourquoi ?
+		System.out.println("test");
+		/*if (this.newPosition.equals(player.GetPosition())){
+			this.newPosition = processCollision(this.newPosition); //Gère les collisions pour empêcher le joueur de traverser les murs
+			player.SetPosition(this.newPosition);
+			
+		}*/
 		
-	}
-	
-	private Vector2 processCollision(Vector2 newPosition2) {
-		//TODO
-		return null;
 	}
 
 	private Vector2 processInputs(){
-		
 		if (keys.get(Keys.RIGHT)){
 			this.newPosition.set(player.GetPosition().x + 1, player.GetPosition().y);
 			player.SetDirection(Direction.FACING_RIGHT);
@@ -93,6 +91,28 @@ public class PlayerController {
 		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
 		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
 		return this.newPosition;
+	}
+	
+	private Vector2 processCollision(Vector2 testPosition){
+		Cell currentCell;
+		int tileSize = (Integer) this.world.getMap().getProperties().get("tilewidth");
+		this.collisionContainer.height = tileSize;
+		this.collisionContainer.width = tileSize;
+		System.out.println("process");
+		for (int i = (int)(testPosition.x/tileSize) - 1; i <= (int)(testPosition.x/tileSize) + 1; i++ ){
+			for (int j = (int)(testPosition.y/tileSize) - 1; j <= (int)(testPosition.y/tileSize) + 1; j++ ){
+				currentCell = ((TiledMapTileLayer)this.world.getColisionLayer()).getCell(i, j);
+				if(currentCell.getTile() != null){
+					this.collisionContainer.x = i*16;
+					this.collisionContainer.y = j*16;
+					if (player.getHitBox().overlaps(this.collisionContainer)){
+						testPosition = player.GetPosition();
+						System.out.println("Collision");
+					}
+				}
+			}
+		}
+		return testPosition;
 	}
 
 	/*
