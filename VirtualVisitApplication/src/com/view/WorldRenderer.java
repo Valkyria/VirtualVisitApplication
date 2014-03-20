@@ -47,18 +47,10 @@ public class WorldRenderer {
 
 	private MapObject currentObject;
 	
-	private int width;
-	private int height;
-	//Ces deux valeurs n'ont aucun sens lorsqu'on utilise le mapRenderer.
-	private float ppuX;	// pixels par unité (par case) sur l'axe X
-	private float ppuY;	// pixels par unité (par case) sur l'axe Y
 	private float imgWidth, imgHeight, StateTime, heightMessage, widthMessage;
 	
 	public WorldRenderer(World world){
 		this.world = world;
-		//float w = Gdx.graphics.getWidth();
-		//float h = Gdx.graphics.getHeight();
-		//cam = new OrthographicCamera(1, h/w);
 		
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
@@ -67,6 +59,46 @@ public class WorldRenderer {
 		this.batch = new SpriteBatch();
 		loadTextures();
 	}
+	
+	public void render(){
+		//On dessine la map grâce à la methode de mapRenderer.
+		//Decoupage des layers et placement du perso entre les couches
+		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
+		cam.update();
+		mapRenderer.setView(cam);
+		
+		// affichage des couches inferieures (par index)
+		mapRenderer.render(new int[]{0,1,2});
+
+		// affichage du perso
+		batch.setProjectionMatrix(cam.combined);
+		batch.begin();
+		this.drawChar();
+		batch.end();
+
+		// affichage de la couche supperieure (par index)
+		mapRenderer.render(new int[]{3});
+		
+		if(this.isColideEvent()){
+			MapProperties props = this.getCurrentObject().getProperties();
+			if(props.get("type").toString().equals(panel)){
+				this.drawMessage(props);
+			}
+			if(props.get("type").toString().equals(transition)){
+				this.drawMessage(props);
+			}
+		}
+		
+	}
+
+	/*______________________________________________________________________
+	     _                     _   _______        _                       
+ 		| |                   | | |__   __|      | |                      
+ 		| |     ___   __ _  __| |    | | _____  _| |_ _   _ _ __ ___  ___ 
+ 		| |    / _ \ / _` |/ _` |    | |/ _ \ \/ / __| | | | '__/ _ \/ __|
+ 		| |___| (_) | (_| | (_| |    | |  __/>  <| |_| |_| | | |  __/\__ \
+ 		|______\___/ \__,_|\__,_|    |_|\___/_/\_\\__|\__,_|_|  \___||___/
+	 _______________________________________________________________________*/
 	
 	private void loadTextures() {
 		font = new BitmapFont();
@@ -117,37 +149,15 @@ public class WorldRenderer {
 		world.getPlayer().getHitBox().setSize(imgWidth, (imgHeight/2));
 	}
 	
-	public void render(){
-		//On dessine la map grâce à la methode de mapRenderer.
-		//Decoupage des layers et placement du perso entre les couches
-		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
-		cam.update();
-		mapRenderer.setView(cam);
-		
-		// affichage des couches inferieures (par index)
-		mapRenderer.render(new int[]{0,1,2});
-
-		// affichage du perso
-		batch.setProjectionMatrix(cam.combined);
-		batch.begin();
-		this.drawChar();
-		batch.end();
-
-		// affichage de la couche supperieure (par index)
-		mapRenderer.render(new int[]{3});
-		
-		if(this.isColideEvent()){
-			MapProperties props = this.getCurrentObject().getProperties();
-			if(props.get("type").toString().equals(panel)){
-				this.drawMessage(props);
-			}
-			if(props.get("type").toString().equals(transition)){
-				this.drawMessage(props);
-			}
-		}
-		
-	}
-
+	/*__________________________________________________________________________
+	   _____                           __  __      _   _               _     
+ 	  |  __ \                         |  \/  |    | | | |             | |    
+ 	  | |  | |_ __ __ ___      _____  | \  / | ___| |_| |__   ___   __| |___ 
+ 	  | |  | | '__/ _` \ \ /\ / / __| | |\/| |/ _ \ __| '_ \ / _ \ / _` / __|
+ 	  | |__| | | | (_| |\ V  V /\__ \ | |  | |  __/ |_| | | | (_) | (_| \__ \
+ 	  |_____/|_|  \__,_| \_/\_/ |___/ |_|  |_|\___|\__|_| |_|\___/ \__,_|___/
+	 ____________________________________________________________________________*/
+	
 	private void drawChar() {
 		Player player = world.getPlayer();
 		Direction direction = player.GetDirection();
@@ -207,19 +217,21 @@ public class WorldRenderer {
 				rectangleObject.getRectangle().width*5, align);
 	}
 	
+	/*_____________________________________________________________________
+	    ____  _   _                 __  __      _   _               _     
+  	   / __ \| | | |               |  \/  |    | | | |             | |    
+ 	  | |  | | |_| |__   ___ _ __  | \  / | ___| |_| |__   ___   __| |___ 
+ 	  | |  | | __| '_ \ / _ \ '__| | |\/| |/ _ \ __| '_ \ / _ \ / _` / __|
+ 	  | |__| | |_| | | |  __/ |    | |  | |  __/ |_| | | | (_) | (_| \__ \
+  	   \____/ \__|_| |_|\___|_|    |_|  |_|\___|\__|_| |_|\___/ \__,_|___/
+	 _______________________________________________________________________*/
+	
 	public void SetStateTime(float StateTime){
 		this.StateTime = StateTime;
 	}
 	
 	public float GetStateTime(){
 		return this.StateTime;
-	}
-	
-	public void setSize(int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.ppuX = (float)width / CAMERA_WIDTH;
-		this.ppuY = (float)height / CAMERA_HEIGHT;
 	}
 	
 	public MapObject getCurrentObject(){
