@@ -1,7 +1,6 @@
 package com.screens;
 
 import com.screens.GameScreen;
-
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Application.ApplicationType;
 
 public class MenuScreen implements Screen {
 	
@@ -33,8 +34,7 @@ public class MenuScreen implements Screen {
 	public MenuScreen(VVAMain game){
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
-		
-		Background = this.game.assets.get("data/img/bg_menu.png");
+		Background = new Texture("data/img/bg_menu.png");
 		atlas = game.assets.get("data/img/btt.atlas");
 		
 		ButtonStyle = new AtlasRegion [2];
@@ -72,7 +72,6 @@ public class MenuScreen implements Screen {
 		spriteBatch = new SpriteBatch();
 		BackgroundRegion=new TextureRegion(Background,0, 0, Background.getWidth(), Background.getHeight());
         stage = new Stage();
-        
         Gdx.input.setInputProcessor(stage);
         Table table = new Table();
         table.setFillParent(true);
@@ -85,13 +84,27 @@ public class MenuScreen implements Screen {
         
         table.padTop(Gdx.graphics.getWidth()/5);
         
-        Play = new TextButton("Play !", style);
-        table.row().pad(0, (float)ButtonStyle[0].getRegionWidth()*1.2f, 0, 0);
-        table.add(Play).fill((float)ButtonStyle[0].getRegionWidth()/500, (float)ButtonStyle[0].getRegionHeight()/100);
-        
-        Quit = new TextButton("Option", style);
-        table.row().pad(0, (float)ButtonStyle[0].getRegionWidth()*1.2f, 0, 0);
-        table.add(Quit).fill((float)ButtonStyle[0].getRegionWidth()/500, (float)ButtonStyle[0].getRegionHeight()/100);
+        if(game.Type.equals(ApplicationType.Android)){
+        	 style.font.setScale(2);
+        	 Play = new TextButton("Play !", style);
+             table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
+             table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+             
+             Quit = new TextButton("Option", style);
+             table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
+             table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+        }
+        else{
+        	style.font.setScale(1);
+       	    Play = new TextButton("Play !", style);
+            table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
+            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            
+            Quit = new TextButton("Option", style);
+            table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
+            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+       }
+       
 	}
 
 	@Override
