@@ -1,0 +1,19 @@
+
+btt.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+menu_btt0
+  rotate: false
+  xy: 0, 0
+  size: 345, 68
+  orig: 345, 68
+  offset: 0, 0
+  index: -1
+menu_btt1
+  rotate: false
+  xy: 345, 0
+  size: 345, 68
+  orig: 345, 68
+  offset: 0, 0
+  index: -1

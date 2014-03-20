@@ -3,6 +3,8 @@
  */
 package com.screens;
 
+import com.MainRoot.VVAMain;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
@@ -32,6 +34,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private PlayerController playerController;
 	private int width, height;
 	private float CurrentStateTime;
+	private Game game;
 	/* 
 	 * Appelé quand on veut afficher le screen pour la première fois.
 	 * Par exemple sous Android, quand on lance l'application, la methode show() est appelée, mais
@@ -40,6 +43,11 @@ public class GameScreen implements Screen, InputProcessor {
 	 * Cependant, quand l'appli est quittée via la touche retour, ou que, lorsqu'elle est en arrière plan on vide la mémoire, 
 	 * alors la méthode show() est appelée à nouveau au lancement.
 	 */
+	
+	public GameScreen(VVAMain g){
+		this.game = g;
+		
+	}
 	@Override
 	public void show() {
 		//Ajouter un nouveau world, un nouveau worldRenderer, et un nouveau PlayerController
