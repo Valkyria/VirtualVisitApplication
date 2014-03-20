@@ -186,7 +186,7 @@ public class WorldRenderer {
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y+heightMessage + rectangleObject.getRectangle().height+(heightMessage/3),
 				rectangleObject.getRectangle().width*5,
-				heightMessage/4);
+				heightMessage/5);
 		
 		batch.draw(bubbleMid, 
 				rectangleObject.getRectangle().x-widthMessage/2,
