@@ -114,7 +114,7 @@ public class WorldRenderer {
 		//HitBox size ! need test
 		imgWidth = PlayerRiAnimation.getKeyFrame(WALKING_FRAME_DURATION).getRegionHeight();
 		imgHeight = PlayerRiAnimation.getKeyFrame(WALKING_FRAME_DURATION).getRegionWidth();
-		world.getPlayer().getHitBox().setSize(imgWidth, imgHeight);
+		world.getPlayer().getHitBox().setSize(imgWidth, (imgHeight/2));
 	}
 	
 	public void render(){
@@ -181,37 +181,29 @@ public class WorldRenderer {
 		batch.end();
 	}
 	public void drawBulle(MapProperties props, RectangleMapObject rectangleObject){
-		float heightBubble;
 		
 		batch.draw(bubbleTop, 
 				rectangleObject.getRectangle().x-widthMessage/2,
-				rectangleObject.getRectangle().y+heightMessage + world.getPlayer().getHitBox().height*2,
+				rectangleObject.getRectangle().y+heightMessage + rectangleObject.getRectangle().height+(heightMessage/3),
 				rectangleObject.getRectangle().width*5,
-				heightMessage/3);
+				heightMessage/4);
 		
-		if(heightMessage > 35){
-			heightBubble = heightMessage;
-		}
-		else{
-			heightBubble = heightMessage*1.5f;
-		}
 		batch.draw(bubbleMid, 
 				rectangleObject.getRectangle().x-widthMessage/2,
-				rectangleObject.getRectangle().y + world.getPlayer().getHitBox().height*1.5f+(heightMessage/3),
+				rectangleObject.getRectangle().y + rectangleObject.getRectangle().height+(heightMessage/3),
 				rectangleObject.getRectangle().width*5,
-				heightBubble);
-		
+				heightMessage);
 		
 		batch.draw(bubbleBot, 
 				rectangleObject.getRectangle().x-widthMessage/2,
-				rectangleObject.getRectangle().y+ world.getPlayer().getHitBox().height*1.5f,
+				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height,
 				rectangleObject.getRectangle().width*5, 
 				heightMessage/3);
 	}
 	public void drawText(MapProperties props, RectangleMapObject rectangleObject){
 		font.drawWrapped(batch, props.get("message").toString(),
 				rectangleObject.getRectangle().x - (widthMessage/2), 
-				rectangleObject.getRectangle().y+ (world.getPlayer().getHitBox().height*2)+heightMessage,
+				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height+heightMessage+(heightMessage/3),
 				rectangleObject.getRectangle().width*5, align);
 	}
 	
