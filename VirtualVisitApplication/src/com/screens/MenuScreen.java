@@ -1,9 +1,11 @@
 package com.screens;
 
+
 import com.screens.GameScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -30,6 +32,7 @@ public class MenuScreen implements Screen {
     private BitmapFont buttonFont;
     private TextureAtlas atlas;
     private TextButton Play, Quit;
+    private Music music;
     
 	public MenuScreen(VVAMain game){
 		//Initialisation des sprites à utiliser sur les boutons
@@ -104,12 +107,18 @@ public class MenuScreen implements Screen {
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
        }
+        
+        music = Gdx.audio.newMusic(Gdx.files.internal("data/song/Sneaky Snitch.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.2f);
+        music.play();
        
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
+		music.dispose();
 
 	}
 
@@ -128,7 +137,7 @@ public class MenuScreen implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,6 +36,7 @@ public class GameScreen implements Screen, InputProcessor {
 	private int width, height;
 	private float CurrentStateTime;
 	private Game game;
+	private Music music;
 	/* 
 	 * Appelé quand on veut afficher le screen pour la première fois.
 	 * Par exemple sous Android, quand on lance l'application, la methode show() est appelée, mais
@@ -55,6 +57,11 @@ public class GameScreen implements Screen, InputProcessor {
 		renderer = new WorldRenderer(world);
 		playerController = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
+		
+		music = Gdx.audio.newMusic(Gdx.files.internal("data/song/The Snow Queen.mp3"));
+	    music.setLooping(true);
+	    music.setVolume(0.2f);
+	    music.play();
 	}
 	
 	/* 
@@ -69,6 +76,8 @@ public class GameScreen implements Screen, InputProcessor {
 		CurrentStateTime = renderer.GetStateTime();
 		renderer.SetStateTime( CurrentStateTime += Gdx.graphics.getDeltaTime());
 		renderer.render();
+		
+		 
 	}
 
 	/* 
@@ -89,6 +98,7 @@ public class GameScreen implements Screen, InputProcessor {
 	public void hide() {
 		//Arrête la surveillance des input quand l'appli est en arrière plan
 		Gdx.input.setInputProcessor(null);
+		music.dispose();
 	}
 
 	/* (non-Javadoc)

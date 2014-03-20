@@ -32,10 +32,8 @@ public class LoadingScreen implements Screen {
 		
 		//________________________________________________________________________
 		
-		/*game.assets.load("Songs/baddies-and-goodies(menu).mp3",Music.class);
-		game.assets.load("Songs/castles-and-dungeons(mainStage).mp3",Music.class);
-		game.assets.load("Songs/the-lord-of-evil(loose).mp3",Music.class);
-		game.assets.load("Songs/playing-to-win(win).mp3",Music.class);*/
+		game.assets.load("data/song/Sneaky Snitch.mp3",Music.class);
+		game.assets.load("data/song/The Snow Queen.mp3",Music.class);
 		
 		//_________________________________________________________________________
 		
