@@ -181,17 +181,25 @@ public class WorldRenderer {
 		batch.end();
 	}
 	public void drawBulle(MapProperties props, RectangleMapObject rectangleObject){
+		float heightBubble;
+		
 		batch.draw(bubbleTop, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y+heightMessage + world.getPlayer().getHitBox().height*2,
 				rectangleObject.getRectangle().width*5,
 				heightMessage/3);
 		
+		if(heightMessage > 35){
+			heightBubble = heightMessage;
+		}
+		else{
+			heightBubble = heightMessage*1.5f;
+		}
 		batch.draw(bubbleMid, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y + world.getPlayer().getHitBox().height*1.5f+(heightMessage/3),
 				rectangleObject.getRectangle().width*5,
-				heightMessage*1.48f);
+				heightBubble);
 		
 		
 		batch.draw(bubbleBot, 
