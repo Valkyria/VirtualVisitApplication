@@ -28,7 +28,7 @@ public class World {
 	}
 	
 	public World(){
-		this.player = new Player(new Vector2(496,200));
+		this.player = new Player(new Vector2(496,192));
 		Texture.setEnforcePotImages(false);
 		this.map = new TmxMapLoader().load("data/map/map.tmx");
 		collision = new MapLayer();

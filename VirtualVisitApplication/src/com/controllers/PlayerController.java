@@ -47,17 +47,12 @@ public class PlayerController {
 		/* Ici on va changer les propriétés de l'objet player en fonction
 		 * des inputs, des detections de collisions etc...
 		 */
-		Vector2 newPosition = new Vector2();
-		//this.newPosition = player.GetPosition();
-		newPosition = processInputs(); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
-		//System.out.println(player.GetPosition());
-		System.out.println(player.getHitBox().x + " " + player.getHitBox().y);
-		if (!newPosition.epsilonEquals(player.GetPosition(), 0.01f)){
-			newPosition = processCollision(newPosition); //Gère les collisions
-		}
-		player.SetPosition(newPosition);
-		
-		
+		Vector2 oldPosition = player.GetPosition();
+		player.SetPosition(processInputs()); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
+		//Si la position du joueur à changé, on check les collisions.
+		if (!oldPosition.epsilonEquals(player.GetPosition(), 0.01f)){
+			player.SetPosition(processCollision(oldPosition)); //Gère les collisions
+		}	
 	}
 
 	private Vector2 processInputs(){
@@ -84,6 +79,7 @@ public class PlayerController {
 			player.SetStatus(State.WALKING);
 		}
 		else{
+			position.set(player.GetPosition());
 			player.SetStatus(State.IDLE);
 		}
 		
@@ -92,25 +88,25 @@ public class PlayerController {
 		return position;
 	}
 	
-	private Vector2 processCollision(Vector2 testPosition){
+	private Vector2 processCollision(Vector2 oldPosition){
 		Cell currentCell;
 		int tileSize = (Integer) this.world.getMap().getProperties().get("tilewidth");
 		this.collisionContainer.height = tileSize;
 		this.collisionContainer.width = tileSize;
-		for (int i = (int)(testPosition.x/tileSize) - 1; i <= (int)(testPosition.x/tileSize) + 1; i++ ){
-			for (int j = (int)(testPosition.y/tileSize) - 1; j <= (int)(testPosition.y/tileSize) + 1; j++ ){
+		for (int i = (int)(player.GetPosition().x/tileSize) - 1; i <= (int)(player.GetPosition().x/tileSize) + 1; i++ ){
+			for (int j = (int)(player.GetPosition().y/tileSize) - 1; j <= (int)(player.GetPosition().y/tileSize) + 1; j++ ){
 				currentCell = ((TiledMapTileLayer)this.world.getColisionLayer()).getCell(i, j);
 				if(currentCell != null){
 					this.collisionContainer.x = i*16;
 					this.collisionContainer.y = j*16;
 					if (player.getHitBox().overlaps(this.collisionContainer)){
-						testPosition = player.GetPosition();
 						System.out.println("collision");
+						return oldPosition;
 					}
 				}
 			}
 		}
-		return testPosition;
+		return player.GetPosition();
 	}
 
 	/*
