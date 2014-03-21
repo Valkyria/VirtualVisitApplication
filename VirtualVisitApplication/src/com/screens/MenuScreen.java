@@ -39,7 +39,7 @@ public class MenuScreen implements Screen {
 		this.game = game;
 		Background = new Texture("data/img/bg_menu.png");
 		atlas = game.assets.get("data/img/btt.atlas");
-		
+
 		ButtonStyle = new AtlasRegion [2];
         ButtonStyle[0] = atlas.findRegion("menu_btt0");
         ButtonStyle[1] = atlas.findRegion("menu_btt1");
