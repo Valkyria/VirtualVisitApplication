@@ -64,6 +64,10 @@ public class PlayerController {
 		 */
 		position = player.getMovementDirection().cpy().scl(Player.SPEED).scl(delta).add(player.GetPosition());
 		
+		//Correction du bug d'affichage avec les lignes.
+		//Problème : déplacement un peu plus haché.
+		position.x = Math.round(position.x);
+		position.y = Math.round(position.y);
 		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
 		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
 		return position;
