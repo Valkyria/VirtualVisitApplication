@@ -73,8 +73,6 @@ public class GameScreen implements Screen, InputProcessor {
 		CurrentStateTime = renderer.GetStateTime();
 		renderer.SetStateTime( CurrentStateTime += Gdx.graphics.getDeltaTime());
 		renderer.render();
-		
-		 
 	}
 
 	/* 
