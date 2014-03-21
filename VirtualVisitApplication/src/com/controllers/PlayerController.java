@@ -62,8 +62,9 @@ public class PlayerController {
 		 * On définit la vitesse par seconde et on utilise le delta pour permettre d'avoir une vitesse constante
 		 * qui ne soit pas liée au FPS.
 		 */
-		position = player.getMovementDirection().cpy().scl(Player.SPEED).scl(delta).add(player.GetPosition());
 		
+		position = player.getMovementDirection().cpy().scl(Player.SPEED).scl(delta).add(player.GetPosition());
+		this.setPlayerFacingDirection(this.world.getPlayer().getMovementDirection());
 		//Correction du bug d'affichage avec les lignes.
 		//Problème : déplacement un peu plus haché.
 		position.x = Math.round(position.x);
@@ -131,5 +132,20 @@ public class PlayerController {
 
 	public void downReleased() {
 		this.player.setMovementDirectionY(0);
+	}
+
+	public void setPlayerFacingDirection(Vector2 movementDirection) {
+		if (movementDirection.y >= 0.5f){
+			player.SetDirection(Direction.FACING_UP);
+		}
+		else if (movementDirection.y <= -0.5f){
+			player.SetDirection(Direction.FACING_DOWN);
+		}
+		else if (movementDirection.x >= 0.5f){
+			player.SetDirection(Direction.FACING_RIGHT);
+		}
+		else if (movementDirection.x <= -0.5f){
+			player.SetDirection(Direction.FACING_LEFT);
+		}
 	}
 }
