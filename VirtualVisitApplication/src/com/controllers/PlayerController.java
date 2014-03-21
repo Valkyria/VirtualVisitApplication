@@ -27,15 +27,6 @@ public class PlayerController {
 		LEFT, RIGHT, UP, DOWN
 	}
 	
-	//Abstraction des actions possibles du joueur (tous les inputs vont se résumer à right, left, up ou down)
-	static Map<Keys, Boolean> keys = new HashMap<PlayerController.Keys, Boolean>();
-	static {
-		keys.put(Keys.LEFT, false);
-		keys.put(Keys.RIGHT, false);
-		keys.put(Keys.UP, false);
-		keys.put(Keys.DOWN, false);
-	};
-	
 	public PlayerController(World world){
 		this.world = world;
 		this.player = world.getPlayer();
@@ -48,40 +39,30 @@ public class PlayerController {
 		 * des inputs, des detections de collisions etc...
 		 */
 		Vector2 oldPosition = player.GetPosition();
-		player.SetPosition(processInputs()); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
+		player.SetPosition(processInputs(delta)); //Gère les actions d'input pour donner la position du joueur à la frame d'après.
 		//Si la position du joueur à changé, on check les collisions.
 		if (!oldPosition.epsilonEquals(player.GetPosition(), 0.01f)){
 			player.SetPosition(processCollision(oldPosition)); //Gère les collisions
 		}	
 	}
 
-	private Vector2 processInputs(){
+	private Vector2 processInputs(float delta){
 		Vector2 position = new Vector2();
-		if (keys.get(Keys.RIGHT)){
-			position.set(player.GetPosition().x + 1, player.GetPosition().y);
-			player.SetDirection(Direction.FACING_RIGHT);
-		}
-		if (keys.get(Keys.LEFT)){
-			position.set(player.GetPosition().x - 1, player.GetPosition().y);
-			player.SetDirection(Direction.FACING_LEFT);
-		}
-		if (keys.get(Keys.UP)){
-			position.set(player.GetPosition().x, player.GetPosition().y + 1);
-			player.SetDirection(Direction.FACING_UP);
-		}
-		if (keys.get(Keys.DOWN)){
-			position.set(player.GetPosition().x, player.GetPosition().y - 1);
-			player.SetDirection(Direction.FACING_DOWN);
-		}
-		
-		
-		if (keys.get(Keys.RIGHT) || keys.get(Keys.LEFT) || keys.get(Keys.UP) || keys.get(Keys.DOWN)){
-			player.SetStatus(State.WALKING);
-		}
-		else{
-			position.set(player.GetPosition());
-			player.SetStatus(State.IDLE);
-		}
+		/*
+		 * Explication de l'instruction :
+		 * "player.getMovementDirection().cpy().scl(Player.SPEED)"
+		 * On prend la direction du mouvement, multiplié par la vitesse du mouvement 
+		 * ce qui nous donne la différence de position entre le joueur à la frame d'avant, et le joueur dans une seconde
+		 * ".scl(delta)"
+		 * Ensuite, on multiplie ça par delta, pour avoir la différence de position entre le joueur à la frame d'avant,
+		 * et le joueur dans delta secondes (à la frame en cours)
+		 * ".add(player.GetPosition()"
+		 * Finalement, on ajoute cette différence à la position initiale (frame d'avant) pour nous donner
+		 * la position finale (frame en cours).
+		 * On définit la vitesse par seconde et on utilise le delta pour permettre d'avoir une vitesse constante
+		 * qui ne soit pas liée au FPS.
+		 */
+		position = player.getMovementDirection().cpy().scl(Player.SPEED).scl(delta).add(player.GetPosition());
 		
 		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
 		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
@@ -100,7 +81,7 @@ public class PlayerController {
 					this.collisionContainer.x = i*16;
 					this.collisionContainer.y = j*16;
 					if (player.getHitBox().overlaps(this.collisionContainer)){
-						System.out.println("collision");
+						//System.out.println("collision");
 						return oldPosition;
 					}
 				}
@@ -117,42 +98,34 @@ public class PlayerController {
 	 * En revanche, la methode update() va lire ces actions et changer l'objet Player en fonction de celles-ci.
 	 */
 	public void leftPressed() {
-		keys.get(keys.put(Keys.LEFT, true));
-		
+		this.player.setMovementDirectionX(-1);
 	}
 
 	public void rightPressed() {
-		keys.get(keys.put(Keys.RIGHT, true));
-		
+		this.player.setMovementDirectionX(1);
 	}
 
 	public void upPressed() {
-		keys.get(keys.put(Keys.UP, true));
-		
+		this.player.setMovementDirectionY(1);
 	}
 
 	public void downPressed() {
-		keys.get(keys.put(Keys.DOWN, true));
-		
+		this.player.setMovementDirectionY(-1);
 	}
 
 	public void leftReleased() {
-		keys.get(keys.put(Keys.LEFT, false));
-		
+		this.player.setMovementDirectionX(0);
 	}
 
 	public void rightReleased() {
-		keys.get(keys.put(Keys.RIGHT, false));
-		
+		this.player.setMovementDirectionX(0);
 	}
 
 	public void upReleased() {
-		keys.get(keys.put(Keys.UP, false));
-		
+		this.player.setMovementDirectionY(0);
 	}
 
 	public void downReleased() {
-		keys.get(keys.put(Keys.DOWN, false));
-		
+		this.player.setMovementDirectionY(0);
 	}
 }

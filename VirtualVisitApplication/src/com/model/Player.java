@@ -15,11 +15,12 @@ public class Player {
 		FACING_RIGHT, FACING_LEFT, FACING_UP, FACING_DOWN
 	}
 	
-	public static final float SIZE = 1f; //La taille du joueur par rapport à la camera (Ici, une case de haut et de large).
+	public static final float SPEED = 60f; //La vitesse du joueur en pixel par seconde.
 	
 	State state = State.IDLE;
 	Direction direction = Direction.FACING_UP;
 	
+	private Vector2 movementDirection;
 	private Vector2 position;
 	private Rectangle HitBox;
 	
@@ -28,6 +29,7 @@ public class Player {
 		this.HitBox = new Rectangle();
 		this.direction = Direction.FACING_DOWN;
 		this.state = State.IDLE;
+		this.movementDirection = new Vector2();
 	}
 	
 	public void SetPosition(Vector2 position){
@@ -57,5 +59,23 @@ public class Player {
 	}
 	public void SetStatus(State state){
 		this.state = state;
+	}
+
+	public Vector2 getMovementDirection() {
+		return movementDirection;
+	}
+
+	public void setMovementDirection(Vector2 movementDirection) {
+		this.movementDirection = movementDirection;
+	}
+	
+	public void setMovementDirectionX (float x){
+		this.movementDirection.x = x;
+		this.movementDirection.nor();
+	}
+	
+	public void setMovementDirectionY (float y){
+		this.movementDirection.y = y;
+		this.movementDirection.nor();
 	}
 }

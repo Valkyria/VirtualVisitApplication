@@ -3,6 +3,8 @@
  */
 package com.screens;
 
+import sun.util.logging.resources.logging;
+
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
@@ -10,16 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.controllers.PlayerController;
 import com.model.World;
 import com.view.WorldRenderer;
@@ -37,6 +30,8 @@ public class GameScreen implements Screen, InputProcessor {
 	private float CurrentStateTime;
 	private Game game;
 	private Music music;
+	private Vector2 initialTouch;
+	private Vector2 currentTouch;
 	/* 
 	 * Appelé quand on veut afficher le screen pour la première fois.
 	 * Par exemple sous Android, quand on lance l'application, la methode show() est appelée, mais
@@ -53,10 +48,12 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void show() {
 		//Ajouter un nouveau world, un nouveau worldRenderer, et un nouveau PlayerController
-		World world = new World();
-		renderer = new WorldRenderer(world);
-		playerController = new PlayerController(world);
+		this.world = new World();
+		this.renderer = new WorldRenderer(world);
+		this.playerController = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
+		this.initialTouch = new Vector2();
+		this.currentTouch = new Vector2();
 		
 		music = Gdx.audio.newMusic(Gdx.files.internal("data/song/The Snow Queen.mp3"));
 	    music.setLooping(true);
@@ -176,8 +173,8 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
+		this.initialTouch.set(screenX, -screenY);
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -185,7 +182,8 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		this.world.getPlayer().setMovementDirectionX(0);
+		this.world.getPlayer().setMovementDirectionY(0);
 		return false;
 	}
 
@@ -194,8 +192,17 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+		this.currentTouch.set(screenX, -screenY);
+		/*
+		 * Ici, je soustrais le vecteur de la nouvelle position du doigt au vecteur de l'ancienne position
+		 * puis je le normalise (sa norme (longueur) vaut 1) et j'en fais une copie.
+		 * Ça me permet d'obtenir une information de direction (deux coordonées entre 0 et 1) mais pas
+		 * de distance. La copie du vecteur est faite pour passer un nouvel objet vecteur au player, pour eviter de
+		 * travailler sur un même objet ici et dans la classe PlayerController.
+		 */
+		this.world.getPlayer().setMovementDirection(currentTouch.sub(this.initialTouch).nor().cpy());
+		//System.out.println(this.world.getPlayer().getMovementDirection());
+		return true;
 	}
 
 	/* (non-Javadoc)
