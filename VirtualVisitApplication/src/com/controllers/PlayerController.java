@@ -65,7 +65,13 @@ public class PlayerController {
 		
 		position = player.getMovementDirection().cpy().scl(Player.SPEED).scl(delta).add(player.GetPosition());
 		this.setPlayerFacingDirection(this.world.getPlayer().getMovementDirection());
-		//Correction du bug d'affichage avec les lignes.
+		if (!this.player.getMovementDirection().epsilonEquals(Vector2.Zero, 0.01f)){
+			player.SetStatus(State.WALKING);
+		}
+		else{
+			player.SetStatus(State.IDLE);
+		}
+		//Correction du bug d'affichage avec les lignes : apparemment pas ?.
 		//Problème : déplacement un peu plus haché.
 		//position.x = Math.round(position.x);
 		//position.y = Math.round(position.y);
