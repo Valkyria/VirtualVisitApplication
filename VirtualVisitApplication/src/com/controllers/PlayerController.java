@@ -43,7 +43,7 @@ public class PlayerController {
 		//Si la position du joueur à changé, on check les collisions.
 		if (!oldPosition.epsilonEquals(player.GetPosition(), 0.01f)){
 			player.SetPosition(processCollision(oldPosition)); //Gère les collisions
-		}	
+		}
 	}
 
 	private Vector2 processInputs(float delta){
@@ -67,8 +67,8 @@ public class PlayerController {
 		this.setPlayerFacingDirection(this.world.getPlayer().getMovementDirection());
 		//Correction du bug d'affichage avec les lignes.
 		//Problème : déplacement un peu plus haché.
-		position.x = Math.round(position.x);
-		position.y = Math.round(position.y);
+		//position.x = Math.round(position.x);
+		//position.y = Math.round(position.y);
 		//Techniquement la variable newPosition est accessible à l'ensemble de la classe, 
 		//mais pour des raison de clarté dans la methode update, je le renvoie quand même.
 		return position;
@@ -119,18 +119,22 @@ public class PlayerController {
 	}
 
 	public void leftReleased() {
-		this.player.setMovementDirectionX(0);
+		if (player.getMovementDirection().x < 0)
+			this.player.setMovementDirectionX(0);
 	}
 
 	public void rightReleased() {
-		this.player.setMovementDirectionX(0);
+		if (player.getMovementDirection().x > 0)
+			this.player.setMovementDirectionX(0);
 	}
 
 	public void upReleased() {
-		this.player.setMovementDirectionY(0);
+		if (player.getMovementDirection().y > 0)
+			this.player.setMovementDirectionY(0);
 	}
 
 	public void downReleased() {
+		if (player.getMovementDirection().y < 0)
 		this.player.setMovementDirectionY(0);
 	}
 
