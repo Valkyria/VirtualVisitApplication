@@ -4,7 +4,7 @@
 package com.screens;
 
 import sun.util.logging.resources.logging;
-
+import com.screens.MenuScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
@@ -19,65 +19,75 @@ import com.view.WorldRenderer;
 
 /**
  * @author Ligier, Tran-Van-Loc
- *
+ * 
  */
 public class GameScreen implements Screen, InputProcessor {
-	
+
 	private World world;
 	private WorldRenderer renderer;
 	private PlayerController playerController;
 	private int width, height;
 	private float CurrentStateTime;
-	private Game game;
+	private VVAMain game;
 	private Music music;
 	private Vector2 initialTouch;
 	private Vector2 currentTouch;
-	/* 
-	 * Appelé quand on veut afficher le screen pour la première fois.
-	 * Par exemple sous Android, quand on lance l'application, la methode show() est appelée, mais
-	 * quand on verrouille le téléphone avec l'appli au premier plan, puis qu'on le déverrouille, elle n'est pas appelée, 
-	 * de même avec la touche home suivi du relancement de l'application.
-	 * Cependant, quand l'appli est quittée via la touche retour, ou que, lorsqu'elle est en arrière plan on vide la mémoire, 
-	 * alors la méthode show() est appelée à nouveau au lancement.
+
+	/*
+	 * Appelé quand on veut afficher le screen pour la première fois. Par
+	 * exemple sous Android, quand on lance l'application, la methode show() est
+	 * appelée, mais quand on verrouille le téléphone avec l'appli au premier
+	 * plan, puis qu'on le déverrouille, elle n'est pas appelée, de même avec la
+	 * touche home suivi du relancement de l'application. Cependant, quand
+	 * l'appli est quittée via la touche retour, ou que, lorsqu'elle est en
+	 * arrière plan on vide la mémoire, alors la méthode show() est appelée à
+	 * nouveau au lancement.
 	 */
-	
-	public GameScreen(VVAMain g){
+
+	public GameScreen(VVAMain g) {
 		this.game = g;
-		
 	}
+
 	@Override
 	public void show() {
-		//Ajouter un nouveau world, un nouveau worldRenderer, et un nouveau PlayerController
+		// Ajouter un nouveau world, un nouveau worldRenderer, et un nouveau
+		// PlayerController
 		this.world = new World();
 		this.renderer = new WorldRenderer(world);
 		this.playerController = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
+		Gdx.input.setCatchBackKey(true);
 		this.initialTouch = new Vector2();
 		this.currentTouch = new Vector2();
-		
-		music = Gdx.audio.newMusic(Gdx.files.internal("data/song/The Snow Queen.mp3"));
-	    music.setLooping(true);
-	    music.setVolume(0.2f);
-	    music.play();
+
+		music = Gdx.audio.newMusic(Gdx.files
+				.internal("data/song/The Snow Queen.mp3"));
+		music.setLooping(true);
+		music.setVolume(0.2f);
+		music.play();
 	}
-	
-	/* 
-	 * Appelé à chaque fois que l'écran se redessine.
-	 * delta correspond au temps écoulé entre deux appels de render.
+
+	public void retourMenu() {
+		this.game.setScreen(new MenuScreen(this.game));
+	}
+
+	/*
+	 * Appelé à chaque fois que l'écran se redessine. delta correspond au temps
+	 * écoulé entre deux appels de render.
 	 */
 	@Override
 	public void render(float delta) {
-		//On update l'état du joueur
+		// On update l'état du joueur
 		playerController.update(delta);
-		//On redessine le monde (WorldRenderer a accès à la map et au joueur, il peut donc tout dessiner).
+		// On redessine le monde (WorldRenderer a accès à la map et au joueur,
+		// il peut donc tout dessiner).
 		CurrentStateTime = renderer.GetStateTime();
-		renderer.SetStateTime( CurrentStateTime += Gdx.graphics.getDeltaTime());
+		renderer.SetStateTime(CurrentStateTime += Gdx.graphics.getDeltaTime());
 		renderer.render();
-		
-		 
+
 	}
 
-	/* 
+	/*
 	 * Appelé lorsque l'écran est redimensionné.
 	 */
 	@Override
@@ -86,19 +96,21 @@ public class GameScreen implements Screen, InputProcessor {
 		this.height = height;
 	}
 
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#hide()
 	 */
 	@Override
 	public void hide() {
-		//Arrête la surveillance des input quand l'appli est en arrière plan
+		// Arrête la surveillance des input quand l'appli est en arrière plan
 		Gdx.input.setInputProcessor(null);
 		music.dispose();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#pause()
 	 */
 	@Override
@@ -107,7 +119,9 @@ public class GameScreen implements Screen, InputProcessor {
 
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.Screen#resume()
 	 */
 	@Override
@@ -116,21 +130,23 @@ public class GameScreen implements Screen, InputProcessor {
 
 	}
 
-	/* 
+	/*
 	 * Appelé quand libgdx détruit les ressources utilisées.
 	 */
 	@Override
 	public void dispose() {
-		//Arrête la surveillance des input quand l'appli se ferme.
+		// Arrête la surveillance des input quand l'appli se ferme.
 		Gdx.input.setInputProcessor(null);
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		//Appellée lorsqu'une touche du clavier physique est pressée.
+		// Appellée lorsqu'une touche du clavier physique est pressée.
 		if (keycode == Keys.LEFT)
 			playerController.leftPressed();
 		if (keycode == Keys.RIGHT)
@@ -139,11 +155,15 @@ public class GameScreen implements Screen, InputProcessor {
 			playerController.upPressed();
 		if (keycode == Keys.DOWN)
 			playerController.downPressed();
-		//La valeur de retour informe l'InputProcessor qu'on a géré cet input.
+		if (keycode == Keys.BACK)
+			retourMenu();
+		// La valeur de retour informe l'InputProcessor qu'on a géré cet input.
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#keyUp(int)
 	 */
 	@Override
@@ -156,10 +176,14 @@ public class GameScreen implements Screen, InputProcessor {
 			playerController.upReleased();
 		if (keycode == Keys.DOWN)
 			playerController.downReleased();
+		if (keycode == Keys.ESCAPE)
+			retourMenu();
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#keyTyped(char)
 	 */
 	@Override
@@ -168,7 +192,9 @@ public class GameScreen implements Screen, InputProcessor {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#touchDown(int, int, int, int)
 	 */
 	@Override
@@ -177,7 +203,9 @@ public class GameScreen implements Screen, InputProcessor {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#touchUp(int, int, int, int)
 	 */
 	@Override
@@ -187,25 +215,32 @@ public class GameScreen implements Screen, InputProcessor {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#touchDragged(int, int, int)
 	 */
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		this.currentTouch.set(screenX, -screenY);
 		/*
-		 * Ici, je soustrais le vecteur de la nouvelle position du doigt au vecteur de l'ancienne position
-		 * puis je le normalise (sa norme (longueur) vaut 1) et j'en fais une copie.
-		 * Ça me permet d'obtenir une information de direction (deux coordonées entre 0 et 1) mais pas
-		 * de distance. La copie du vecteur est faite pour passer un nouvel objet vecteur au player, pour eviter de
-		 * travailler sur un même objet ici et dans la classe PlayerController.
+		 * Ici, je soustrais le vecteur de la nouvelle position du doigt au
+		 * vecteur de l'ancienne position puis je le normalise (sa norme
+		 * (longueur) vaut 1) et j'en fais une copie. Ça me permet d'obtenir une
+		 * information de direction (deux coordonées entre 0 et 1) mais pas de
+		 * distance. La copie du vecteur est faite pour passer un nouvel objet
+		 * vecteur au player, pour eviter de travailler sur un même objet ici et
+		 * dans la classe PlayerController.
 		 */
-		this.world.getPlayer().setMovementDirection(currentTouch.sub(this.initialTouch).nor().cpy());
-		//System.out.println(this.world.getPlayer().getMovementDirection());
+		this.world.getPlayer().setMovementDirection(
+				currentTouch.sub(this.initialTouch).nor().cpy());
+		// System.out.println(this.world.getPlayer().getMovementDirection());
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#mouseMoved(int, int)
 	 */
 	@Override
@@ -214,7 +249,9 @@ public class GameScreen implements Screen, InputProcessor {
 		return false;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.badlogic.gdx.InputProcessor#scrolled(int)
 	 */
 	@Override
