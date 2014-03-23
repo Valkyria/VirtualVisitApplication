@@ -31,9 +31,15 @@ public class World {
 		this.player = new Player(new Vector2(496,192));
 		Texture.setEnforcePotImages(false);
 		this.map = new TmxMapLoader().load("data/map/map.tmx");
+		
+
+		this.setLayers();
+	}
+	public void setLayers(){
+
 		collision = new MapLayer();
 		event = new MapLayer();
-
+		
 		//Recherche et enregistrement du calque de collision et event
 		//on le supprime ensuite pour qu'il soit invisible
 		for(int i=0;i<map.getLayers().getCount();i++){
@@ -46,5 +52,19 @@ public class World {
 				this.map.getLayers().remove(i);
 			}
 		}
+	}
+	public void setHouse(){
+		//this.player = new Player(new Vector2(160,80));
+		Texture.setEnforcePotImages(false);
+		this.map = new TmxMapLoader().load("data/map/house.tmx");
+		
+		this.setLayers();
+	}
+	public void setMap(){
+		//this.player = new Player(new Vector2(160,80));
+		Texture.setEnforcePotImages(false);
+		this.map = new TmxMapLoader().load("data/map/map.tmx");
+		
+		this.setLayers();
 	}
 }

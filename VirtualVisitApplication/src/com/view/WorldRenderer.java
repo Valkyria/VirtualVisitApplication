@@ -19,6 +19,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
 	
@@ -32,6 +33,8 @@ public class WorldRenderer {
 	private static final float fontSize = 0.5f;
 	private static final String panel = "panel";
 	private static final String transition = "transition";
+	private static final String message = "message";
+	private static final String map = "map";
 	private static final HAlignment align = HAlignment.CENTER;
 			
 	private World world;
@@ -85,7 +88,12 @@ public class WorldRenderer {
 				this.drawMessage(props);
 			}
 			if(props.get("type").toString().equals(transition)){
-				this.drawMessage(props);
+				world.setHouse();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(map)){
+				world.setMap();
+				this.resetView();
 			}
 		}
 		
@@ -182,8 +190,8 @@ public class WorldRenderer {
 	
 	private void drawMessage(MapProperties props){
 		RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
-		heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*7).height;
-		widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*7).width;
+		heightMessage = font.getWrappedBounds(props.get(message).toString(), rectangleObject.getRectangle().width*7).height;
+		widthMessage = font.getWrappedBounds(props.get(message).toString(), rectangleObject.getRectangle().width*7).width;
 		
 		batch.begin();
 		this.drawBulle(props, rectangleObject);
@@ -207,16 +215,23 @@ public class WorldRenderer {
 		batch.draw(bubbleBot, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height,
-				rectangleObject.getRectangle().width*7, 
+				rectangleObject.getRectangle().width*7,
 				heightMessage/3);
 	}
 	public void drawText(MapProperties props, RectangleMapObject rectangleObject){
-		font.drawWrapped(batch, props.get("message").toString(),
+		font.drawWrapped(batch, props.get(message).toString(),
 				rectangleObject.getRectangle().x - (widthMessage/2), 
 				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height+heightMessage+(heightMessage/3),
 				rectangleObject.getRectangle().width*7, align);
 	}
-	
+	public void resetView(){
+		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
+		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+		this.cam.update();
+		this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap());
+		this.batch = new SpriteBatch();
+		loadTextures();
+	}
 	/*_____________________________________________________________________
 	    ____  _   _                 __  __      _   _               _     
   	   / __ \| | | |               |  \/  |    | | | |             | |    
