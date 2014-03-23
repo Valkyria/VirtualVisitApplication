@@ -48,9 +48,8 @@ public class MenuScreen implements Screen {
         ButtonStyle[1] = atlas.findRegion("menu_btt1");
         
         //FileHandle fontFile = Gdx.files.internal("data/font/SantasSleighFull.ttf");
-       /* buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"),
-                Gdx.files.internal("data/font/SantasSleighFull.png"), false);*/
-       buttonFont= new BitmapFont();
+       buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
+       //buttonFont= new BitmapFont();
 	}
 	
 	@Override

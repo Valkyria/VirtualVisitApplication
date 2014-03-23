@@ -29,7 +29,7 @@ public class WorldRenderer {
 	private static final float CAMERA_WIDTH = (16*32); //Ici on décide du nombre de tiles affichées à l'écran.
 	private static final float CAMERA_HEIGHT = (16*18); //Dans ce cas, on affiche 10*7 tiles.
 	private static final float WALKING_FRAME_DURATION = 0.1f;
-	private static final float fontSize = 0.8f;
+	private static final float fontSize = 0.5f;
 	private static final String panel = "panel";
 	private static final String transition = "transition";
 	private static final HAlignment align = HAlignment.CENTER;
@@ -101,7 +101,7 @@ public class WorldRenderer {
 	 _______________________________________________________________________*/
 	
 	private void loadTextures() {
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
 		font.setScale(fontSize);
 		//font.setColor(Color.DARK_GRAY);
 		TextureAtlas bubbleAtlas = new TextureAtlas(Gdx.files.internal("data/map/tilesets/bubble.atlas"));
@@ -182,8 +182,8 @@ public class WorldRenderer {
 	
 	private void drawMessage(MapProperties props){
 		RectangleMapObject rectangleObject = (RectangleMapObject)(this.getCurrentObject());
-		heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).height;
-		widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*5).width;
+		heightMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*7).height;
+		widthMessage = font.getWrappedBounds(props.get("message").toString(), rectangleObject.getRectangle().width*7).width;
 		
 		batch.begin();
 		this.drawBulle(props, rectangleObject);
@@ -195,26 +195,26 @@ public class WorldRenderer {
 		batch.draw(bubbleTop, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y+heightMessage + rectangleObject.getRectangle().height+(heightMessage/3),
-				rectangleObject.getRectangle().width*5,
+				rectangleObject.getRectangle().width*7,
 				heightMessage/5);
 		
 		batch.draw(bubbleMid, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y + rectangleObject.getRectangle().height+(heightMessage/3),
-				rectangleObject.getRectangle().width*5,
+				rectangleObject.getRectangle().width*7,
 				heightMessage);
 		
 		batch.draw(bubbleBot, 
 				rectangleObject.getRectangle().x-widthMessage/2,
 				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height,
-				rectangleObject.getRectangle().width*5, 
+				rectangleObject.getRectangle().width*7, 
 				heightMessage/3);
 	}
 	public void drawText(MapProperties props, RectangleMapObject rectangleObject){
 		font.drawWrapped(batch, props.get("message").toString(),
 				rectangleObject.getRectangle().x - (widthMessage/2), 
 				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height+heightMessage+(heightMessage/3),
-				rectangleObject.getRectangle().width*5, align);
+				rectangleObject.getRectangle().width*7, align);
 	}
 	
 	/*_____________________________________________________________________
