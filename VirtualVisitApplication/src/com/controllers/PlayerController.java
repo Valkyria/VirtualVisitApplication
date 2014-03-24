@@ -1,8 +1,5 @@
 package com.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;

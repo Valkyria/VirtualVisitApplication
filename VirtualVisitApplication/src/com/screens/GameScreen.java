@@ -3,11 +3,8 @@
  */
 package com.screens;
 
-import sun.util.logging.resources.logging;
-
 import com.screens.MenuScreen;
 import com.MainRoot.VVAMain;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
