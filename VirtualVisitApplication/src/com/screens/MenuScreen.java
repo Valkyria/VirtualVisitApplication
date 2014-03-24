@@ -4,10 +4,8 @@ package com.screens;
 import com.screens.GameScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -20,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Application.ApplicationType;
 
 public class MenuScreen implements Screen {
@@ -36,7 +33,6 @@ public class MenuScreen implements Screen {
     private TextButton Play, Quit;
     private Music music;
     
-	@SuppressWarnings("deprecation")
 	public MenuScreen(VVAMain game){
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
@@ -110,11 +106,11 @@ public class MenuScreen implements Screen {
         	style.font.setScale(1f);
        	    Play = new TextButton("Play !", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/500);
             
             Quit = new TextButton("Quitter", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/500);
        }
         
         music = Gdx.audio.newMusic(Gdx.files.internal("data/song/Sneaky Snitch.mp3"));

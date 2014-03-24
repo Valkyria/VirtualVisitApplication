@@ -23,6 +23,7 @@ public class Player {
 	private Vector2 movementDirection;
 	private Vector2 position;
 	private Rectangle HitBox;
+	private Vector2 prevPosition;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -30,6 +31,7 @@ public class Player {
 		this.direction = Direction.FACING_DOWN;
 		this.state = State.IDLE;
 		this.movementDirection = new Vector2();
+		this.prevPosition = new Vector2();
 	}
 	
 	public void SetPosition(Vector2 position){
@@ -38,7 +40,7 @@ public class Player {
 	}
 	
 	public void SetPosition(float x, float y){
-		this.position.add(x, y);
+		this.position.set(x, y);
 		this.HitBox.setPosition(x, y);
 	}
 	
@@ -77,5 +79,9 @@ public class Player {
 	public void setMovementDirectionY (float y){
 		this.movementDirection.y = y;
 		this.movementDirection.nor();
+	}
+
+	public Vector2 getPrevPosition() {
+		return prevPosition;
 	}
 }

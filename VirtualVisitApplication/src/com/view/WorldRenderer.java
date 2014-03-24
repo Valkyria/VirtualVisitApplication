@@ -96,7 +96,6 @@ public class WorldRenderer {
 				this.resetView();
 			}
 		}
-		
 	}
 
 	/*______________________________________________________________________
@@ -111,7 +110,6 @@ public class WorldRenderer {
 	private void loadTextures() {
 		font = new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
 		font.setScale(fontSize);
-		//font.setColor(Color.DARK_GRAY);
 		TextureAtlas bubbleAtlas = new TextureAtlas(Gdx.files.internal("data/map/tilesets/bubble.atlas"));
 		bubbleTop = bubbleAtlas.findRegion("bubble_tot");
 		bubbleBot = bubbleAtlas.findRegion("bubble_bot");
@@ -198,6 +196,7 @@ public class WorldRenderer {
 		this.drawText(props, rectangleObject);
 		batch.end();
 	}
+	
 	public void drawBulle(MapProperties props, RectangleMapObject rectangleObject){
 		
 		batch.draw(bubbleTop, 
@@ -218,13 +217,27 @@ public class WorldRenderer {
 				rectangleObject.getRectangle().width*7,
 				heightMessage/3);
 	}
+	
 	public void drawText(MapProperties props, RectangleMapObject rectangleObject){
 		font.drawWrapped(batch, props.get(message).toString(),
 				rectangleObject.getRectangle().x - (widthMessage/2), 
 				rectangleObject.getRectangle().y+ rectangleObject.getRectangle().height+heightMessage+(heightMessage/3),
 				rectangleObject.getRectangle().width*7, align);
 	}
+	
+	/*_____________________________________________________________
+	 _____         _ _       _                             
+    / ____|       (_) |     | |                            
+   | (_____      ___| |_ ___| |__    _ __ ___   __ _ _ __  
+    \___ \ \ /\ / / | __/ __| '_ \  | '_ ` _ \ / _` | '_ \ 
+    ____) \ V  V /| | || (__| | | | | | | | | | (_| | |_) |
+   |_____/ \_/\_/ |_|\__\___|_| |_| |_| |_| |_|\__,_| .__/ 
+                                                    | |    
+                                                    |_|  
+     ______________________________________________________________*/
+	
 	public void resetView(){
+		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
 		this.cam.update();
@@ -232,6 +245,7 @@ public class WorldRenderer {
 		this.batch = new SpriteBatch();
 		loadTextures();
 	}
+	
 	/*_____________________________________________________________________
 	    ____  _   _                 __  __      _   _               _     
   	   / __ \| | | |               |  \/  |    | | | |             | |    

@@ -15,12 +15,12 @@
  </layer>
  <layer name="first" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF1AQvDBkYXgLxK0NUNrmg04iBoQuIu41Q2cjASpJ487SMGRi0gVjHGJUNA5paqPQooC1QAoa9MhJWMSasBx84DNR/BAkfRTMPPV4pjWdyzBtNY8MHAABCExal
+   eJxjYBgF1AQvDBkYXgLxK0NUNjYQpUXYvE4jBoYuIO42QmUjAytJCP2bCPO0jBkYtIFYxxiVDQOaWqj0KKAtUAKGvTISVjEmrAcfOAzUfwQJH0UzDz1eKY1ncswbTWPDBwAAz/wYTg==
   </data>
  </layer>
  <layer name="second" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgeIEuZfL05JgwMuUCcZ4JpXq0GA0MdENdrEG8erykDAx8Q85timienycAgD8QKQBylRb6bsfn3N5XNG+oA5CdceLLaQLuOeLAHmFb2AvE+TeqYFwtMJ3FAHE9BekEG/4Dm/AeZpU0d80bB0AEAZNUVOw==
+   eJxjYBgeIEuZfL05JgwMuUCcZ4JpXq0GA0MdENdrEG8erykDAx8Q85timienycAgD8QKmuS7F9k8agFqmzcYAMhPuPBktYF2HfFgDzCt7AXifRSmGRiI1WJgiAPieC3qmPcPaM5/kFna1DFvFAwdAADW3ROS
   </data>
  </layer>
  <layer name="colision" width="20" height="20">
@@ -28,7 +28,7 @@
    eJxjYBgFo2AUjIJRMApIBwAGQAAB
   </data>
  </layer>
- <objectgroup name="collision" width="20" height="20">
+ <objectgroup name="collision" width="20" height="20" visible="0">
   <object x="75" y="182" width="57" height="25"/>
   <object x="208" y="66" width="17" height="26"/>
   <object x="242" y="72" width="12" height="23"/>
@@ -52,7 +52,7 @@
    <polygon points="0,0 17,-16 -5,-30"/>
   </object>
  </objectgroup>
- <objectgroup name="events" width="20" height="20">
+ <objectgroup name="events" width="20" height="20" visible="0">
   <object name="trans1" type="map" x="147" y="264" width="25" height="19">
    <properties>
     <property name="goto" value="ext"/>
