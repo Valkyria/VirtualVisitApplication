@@ -4,14 +4,19 @@
 package com.screens;
 
 import sun.util.logging.resources.logging;
+
 import com.screens.MenuScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.controllers.PlayerController;
 import com.model.World;
@@ -26,13 +31,13 @@ public class GameScreen implements Screen, InputProcessor {
 	private World world;
 	private WorldRenderer renderer;
 	private PlayerController playerController;
-	private int width, height;
 	private float CurrentStateTime;
 	private VVAMain game;
 	private Music music;
 	private Vector2 initialTouch;
 	private Vector2 currentTouch;
-
+	private ShapeRenderer shapeRenderer;
+	
 	/*
 	 * Appelé quand on veut afficher le screen pour la première fois. Par
 	 * exemple sous Android, quand on lance l'application, la methode show() est
@@ -59,7 +64,8 @@ public class GameScreen implements Screen, InputProcessor {
 		Gdx.input.setCatchBackKey(true);
 		this.initialTouch = new Vector2();
 		this.currentTouch = new Vector2();
-
+		this.shapeRenderer = new ShapeRenderer();
+		
 		music = Gdx.audio.newMusic(Gdx.files
 				.internal("data/song/The Snow Queen.mp3"));
 		music.setLooping(true);
@@ -70,7 +76,21 @@ public class GameScreen implements Screen, InputProcessor {
 	public void retourMenu() {
 		this.game.setScreen(new MenuScreen(this.game));
 	}
-
+	public void drawCircle(){
+		shapeRenderer.setColor(Color.BLACK);
+		if(game.Type.equals(ApplicationType.Android)){
+			Gdx.gl10.glLineWidth(world.getPlayer().getHitBox().width/2);
+			shapeRenderer.circle(this.initialTouch.x, this.initialTouch.y+Gdx.graphics.getHeight(), world.getPlayer().getHitBox().width*4);
+			shapeRenderer.circle(this.initialTouch.x, this.initialTouch.y+Gdx.graphics.getHeight(), world.getPlayer().getHitBox().width*6);
+		}
+		else{
+			Gdx.gl10.glLineWidth(world.getPlayer().getHitBox().width/5);
+			shapeRenderer.circle(this.initialTouch.x, this.initialTouch.y+Gdx.graphics.getHeight(), world.getPlayer().getHitBox().width);
+			shapeRenderer.circle(this.initialTouch.x, this.initialTouch.y+Gdx.graphics.getHeight(), world.getPlayer().getHitBox().width*2);
+		}
+		
+		shapeRenderer.line(this.initialTouch.x, this.initialTouch.y+Gdx.graphics.getHeight(), Gdx.input.getX(), Gdx.graphics.getHeight()-Gdx.input.getY());
+	}
 	/*
 	 * Appelé à chaque fois que l'écran se redessine. delta correspond au temps
 	 * écoulé entre deux appels de render.
@@ -84,6 +104,12 @@ public class GameScreen implements Screen, InputProcessor {
 		CurrentStateTime = renderer.GetStateTime();
 		renderer.SetStateTime(CurrentStateTime += Gdx.graphics.getDeltaTime());
 		renderer.render();
+		if(Gdx.input.isTouched()){
+			shapeRenderer.begin(ShapeType.Line);
+				this.drawCircle();
+			shapeRenderer.end();
+		}
+		
 
 	}
 
@@ -92,8 +118,6 @@ public class GameScreen implements Screen, InputProcessor {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		this.width = width;
-		this.height = height;
 	}
 
 	/*

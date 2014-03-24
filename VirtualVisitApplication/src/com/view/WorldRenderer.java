@@ -5,6 +5,7 @@ import com.model.Player.Direction;
 import com.model.Player.State;
 import com.model.World;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -15,12 +16,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
 	
@@ -48,7 +50,7 @@ public class WorldRenderer {
 	private Sprite currentSprite;
 	private BitmapFont font;
 	private TextureRegion bubbleBot, bubbleTop, bubbleMid;
-
+	
 	private MapObject currentObject;
 	
 	private float imgWidth, imgHeight, StateTime, heightMessage, widthMessage;
@@ -61,6 +63,7 @@ public class WorldRenderer {
 		this.cam.update();
 		this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap());
 		this.batch = new SpriteBatch();
+		
 		loadTextures();
 	}
 	
@@ -85,7 +88,8 @@ public class WorldRenderer {
 
 		// affichage de la couche supperieure (par index)
 		mapRenderer.render(new int[]{3});
-		
+		if(Gdx.input.isTouched()){
+		}
 		if(this.isColideEvent()){
 			MapProperties props = this.getCurrentObject().getProperties();
 			if(props.get("type").toString().equals(panel)){

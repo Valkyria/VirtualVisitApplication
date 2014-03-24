@@ -1,17 +1,11 @@
 package com.model;
 
-import java.awt.geom.Point2D;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.model.Player.Direction;
-import com.model.Player.State;
 
 public class World {
 	private TiledMap map;
@@ -58,12 +52,10 @@ public class World {
 	}
 	
 	public void setHouse(){
-		/*this.player = new Player(new Vector2(160,80));
-		this.player.SetDirection(Direction.FACING_UP);
-		this.player.SetStatus(State.IDLE);*/
 		Texture.setEnforcePotImages(false);
 		this.player.getPrevPosition().set(this.player.GetPosition());
 		this.player.SetPosition(144,60);
+		this.player.SetDirection(Direction.FACING_UP);
 		this.map = new TmxMapLoader().load("data/map/house.tmx");
 		
 		this.setLayers();
@@ -71,8 +63,8 @@ public class World {
 	
 	public void setMap(){
 		Texture.setEnforcePotImages(false);
-		//this.player.getPrevPosition().set(this.player.GetPosition());
-		this.player.SetPosition(this.player.getPrevPosition().x, this.player.getPrevPosition().y);
+		this.player.SetPosition(this.player.getPrevPosition().x, this.player.getPrevPosition().y-this.player.getHitBox().getHeight());
+		this.player.SetDirection(Direction.FACING_DOWN);
 		this.map = new TmxMapLoader().load("data/map/map.tmx");
 		
 		this.setLayers();
