@@ -155,8 +155,7 @@ public class GameScreen implements Screen, InputProcessor {
 			playerController.upPressed();
 		if (keycode == Keys.DOWN)
 			playerController.downPressed();
-		if (keycode == Keys.BACK)
-			retourMenu();
+
 		// La valeur de retour informe l'InputProcessor qu'on a géré cet input.
 		return true;
 	}
@@ -177,6 +176,8 @@ public class GameScreen implements Screen, InputProcessor {
 		if (keycode == Keys.DOWN)
 			playerController.downReleased();
 		if (keycode == Keys.ESCAPE)
+			retourMenu();
+		if (keycode == Keys.BACK)
 			retourMenu();
 		return true;
 	}
