@@ -4,8 +4,10 @@ package com.screens;
 import com.screens.GameScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -34,6 +36,7 @@ public class MenuScreen implements Screen {
     private TextButton Play, Quit;
     private Music music;
     
+	@SuppressWarnings("deprecation")
 	public MenuScreen(VVAMain game){
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
@@ -43,7 +46,10 @@ public class MenuScreen implements Screen {
 		ButtonStyle = new AtlasRegion [2];
         ButtonStyle[0] = atlas.findRegion("menu_btt0");
         ButtonStyle[1] = atlas.findRegion("menu_btt1");
-        buttonFont= new BitmapFont();
+        
+        //FileHandle fontFile = Gdx.files.internal("data/font/SantasSleighFull.ttf");
+       buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
+       //buttonFont= new BitmapFont();
 	}
 	
 	@Override
@@ -59,8 +65,11 @@ public class MenuScreen implements Screen {
        		this.game.setScreen(new GameScreen(game));
         }
         if(Quit.isPressed()){
-       		this.game.setScreen(new GameScreen(game));
+        	Gdx.app.exit();
         }
+        /*if (Gdx.input.isKeyPressed(Keys.BACK)){
+        	Gdx.app.exit();
+        }*/
 
 	}
 
@@ -93,17 +102,17 @@ public class MenuScreen implements Screen {
              table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
              table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
              
-             Quit = new TextButton("Option", style);
+             Quit = new TextButton("Quitter", style);
              table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
              table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
         }
         else{
-        	style.font.setScale(1);
+        	style.font.setScale(1f);
        	    Play = new TextButton("Play !", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
             
-            Quit = new TextButton("Option", style);
+            Quit = new TextButton("Quitter", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
        }
