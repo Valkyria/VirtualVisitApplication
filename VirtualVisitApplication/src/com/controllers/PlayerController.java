@@ -1,6 +1,8 @@
 package com.controllers;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -78,19 +80,39 @@ public class PlayerController {
 	}
 	
 	private Vector2 processCollision(Vector2 oldPosition){
-		Cell currentCell;
-		int tileSize = (Integer) this.world.getMap().getProperties().get("tilewidth");
-		this.collisionContainer.height = tileSize;
-		this.collisionContainer.width = tileSize;
-		for (int i = (int)(player.GetPosition().x/tileSize) - 1; i <= (int)(player.GetPosition().x/tileSize) + 1; i++ ){
-			for (int j = (int)(player.GetPosition().y/tileSize) - 1; j <= (int)(player.GetPosition().y/tileSize) + 1; j++ ){
-				currentCell = ((TiledMapTileLayer)this.world.getColisionLayer()).getCell(i, j);
-				if(currentCell != null){
-					this.collisionContainer.x = i*16;
-					this.collisionContainer.y = j*16;
-					if (player.getHitBox().overlaps(this.collisionContainer)){
-						//System.out.println("collision");
-						return oldPosition;
+//		Cell currentCell;
+//		int tileSize = (Integer) this.world.getMap().getProperties().get("tilewidth");
+//		this.collisionContainer.height = tileSize;
+//		this.collisionContainer.width = tileSize;
+//		for (int i = (int)(player.GetPosition().x/tileSize) - 1; i <= (int)(player.GetPosition().x/tileSize) + 1; i++ ){
+//			for (int j = (int)(player.GetPosition().y/tileSize) - 1; j <= (int)(player.GetPosition().y/tileSize) + 1; j++ ){
+//				currentCell = ((TiledMapTileLayer)this.world.getColisionLayer()).getCell(i, j);
+//				if(currentCell != null){
+//					this.collisionContainer.x = i*16;
+//					this.collisionContainer.y = j*16;
+//					if (player.getHitBox().overlaps(this.collisionContainer)){
+//						//System.out.println("collision");
+//						return oldPosition;
+//					}
+//				}
+//			}
+//		}
+		Rectangle currentRect;
+		for (MapObject objectRectangle : this.world.getColisionLayer().getObjects()){
+			if (objectRectangle instanceof RectangleMapObject){
+				currentRect = ((RectangleMapObject)objectRectangle).getRectangle();
+				if (this.player.getHitBox().overlaps(currentRect)){
+					if(this.player.getMovementDirection().x < 0 && oldPosition.x > (currentRect.x + currentRect.getWidth())){
+						this.player.SetPosition(oldPosition.x, this.player.GetPosition().y);
+					}
+					if(this.player.getMovementDirection().x > 0 && oldPosition.x < currentRect.x){
+						this.player.SetPosition(oldPosition.x, this.player.GetPosition().y);
+					}
+					if(this.player.getMovementDirection().y < 0 && oldPosition.y > (currentRect.y + currentRect.getHeight())){
+						this.player.SetPosition(this.player.GetPosition().x, oldPosition.y);
+					}
+					if(this.player.getMovementDirection().y > 0 && oldPosition.y < currentRect.y){
+						this.player.SetPosition(this.player.GetPosition().x, oldPosition.y);
 					}
 				}
 			}
