@@ -187,6 +187,8 @@
   <object x="747" y="308" width="3" height="25"/>
   <object x="747" y="372" width="3" height="25"/>
   <object x="357" y="529" width="21" height="13"/>
+  <object x="290" y="112" width="62" height="45"/>
+  <object x="294" y="158" width="56" height="16"/>
  </objectgroup>
  <objectgroup name="events" width="80" height="50">
   <object name="BigDoor" type="panel" x="496" y="583" width="14" height="15">

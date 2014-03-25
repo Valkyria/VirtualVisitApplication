@@ -40,7 +40,7 @@ public class World {
 		//Recherche et enregistrement du calque de collision et event
 		//on le supprime ensuite pour qu'il soit invisible
 		for(int i=0;i<map.getLayers().getCount();i++){
-			if(map.getLayers().get(i).getName().equals("colision")){
+			if(map.getLayers().get(i).getName().equals("collision")){
 				this.collision=map.getLayers().get(i);
 				this.map.getLayers().remove(i);
 			}
