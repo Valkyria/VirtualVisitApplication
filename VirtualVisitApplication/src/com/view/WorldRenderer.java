@@ -24,17 +24,20 @@ import com.badlogic.gdx.math.Rectangle;
 public class WorldRenderer {
 	
 	/* Constantes concernant la camera
-	 * Comme on utilise mapRenderer, on est obligé de multiplier par 32 la taille de la camera.
-	 * Lorsqu'on dessinera nous même les layers, il faudra utiliser juste les valeurs 10 et 7, et les ppuX et les ppuY.
+	 * Comme on utilise mapRenderer, on est obligï¿½ de multiplier par 32 la taille de la camera.
+	 * Lorsqu'on dessinera nous mï¿½me les layers, il faudra utiliser juste les valeurs 10 et 7, et les ppuX et les ppuY.
 	 */
-	private static final float CAMERA_WIDTH = (16*32); //Ici on décide du nombre de tiles affichées à l'écran.
+	private static final float CAMERA_WIDTH = (16*32); //Ici on dï¿½cide du nombre de tiles affichï¿½es ï¿½ l'ï¿½cran.
 	private static final float CAMERA_HEIGHT = (16*18); //Dans ce cas, on affiche 10*7 tiles.
+	private static final int camX = (int) Math.round(CAMERA_WIDTH/ 2f);
+	private static final int camY = (int) Math.round(CAMERA_WIDTH/ 2f);
 	private static final float WALKING_FRAME_DURATION = 0.1f;
 	private static final float fontSize = 0.5f;
 	private static final String panel = "panel";
 	private static final String transition = "transition";
 	private static final String message = "message";
 	private static final String map = "map";
+	private static final String mainBat = "mainBat";
 	private static final HAlignment align = HAlignment.CENTER;
 			
 	private World world;
@@ -56,7 +59,7 @@ public class WorldRenderer {
 		this.world = world;
 		
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+		this.cam.position.set(camX, camY, 0);
 		this.cam.update();
 		this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap());
 		this.batch = new SpriteBatch();
@@ -65,20 +68,23 @@ public class WorldRenderer {
 	}
 	
 	public void render(){
+		
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		//On dessine la map grâce à la methode de mapRenderer.
+
+		//On dessine la map grï¿½ce ï¿½ la methode de mapRenderer.
 		//Decoupage des layers et placement du perso entre les couches
 		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		cam.update();
-		mapRenderer.setView(cam);
+		batch.setProjectionMatrix(cam.combined);
 		
+		batch.begin();
+		mapRenderer.setView(cam);
+		batch.end();
 		// affichage des couches inferieures (par index)
 		mapRenderer.render(new int[]{0,1,2});
 
 		// affichage du perso
-		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
 		this.drawChar();
 		batch.end();
@@ -98,6 +104,10 @@ public class WorldRenderer {
 			}
 			if(props.get("type").toString().equals(map)){
 				world.setMap();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(mainBat)){
+				world.setMainBat();
 				this.resetView();
 			}
 		}
@@ -244,7 +254,7 @@ public class WorldRenderer {
 	public void resetView(){
 		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
-		this.cam.position.set(CAMERA_WIDTH / 2f, CAMERA_HEIGHT / 2f, 0);
+		this.cam.position.set(camX, camY, 0);
 		this.cam.update();
 		this.mapRenderer = new OrthogonalTiledMapRenderer(world.getMap());
 		this.batch = new SpriteBatch();

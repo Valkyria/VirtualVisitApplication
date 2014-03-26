@@ -27,7 +27,9 @@ public class World {
 	
 	public World(){
 		this.player = new Player(new Vector2(496,192));
+		this.player.setPrevMap(0);
 		Texture.setEnforcePotImages(false);
+		this.player.SetDirection(Direction.FACING_UP);
 		this.map = new TmxMapLoader().load("data/map/map.tmx");
 		this.setLayers();
 	}
@@ -63,9 +65,37 @@ public class World {
 	
 	public void setMap(){
 		Texture.setEnforcePotImages(false);
-		this.player.SetPosition(this.player.getPrevPosition().x, this.player.getPrevPosition().y-this.player.getHitBox().getHeight());
+		if(this.player.getPrevMap() == 1){
+			this.player.getPrevPosition().set(31*16,27*16);
+			this.player.setPrevMap(0);
+		}
+		
+		this.player.SetPosition(this.player.getPrevPosition().x, 
+				this.player.getPrevPosition().y-this.player.getHitBox().getHeight());
+		
 		this.player.SetDirection(Direction.FACING_DOWN);
 		this.map = new TmxMapLoader().load("data/map/map.tmx");
+		this.setLayers();
+	}
+	
+	public void setMainBat(){
+		Texture.setEnforcePotImages(false);
+		
+		this.map = new TmxMapLoader().load("data/map/main_c1.tmx");
+		
+		if(this.player.getPrevMap() == 0){
+			this.player.SetPosition(9*16,32);
+			this.player.setPrevMap(1);
+		}
+		else{
+			if(this.player.getPrevPosition().x > Float.parseFloat(map.getProperties().get("width").toString())/2){
+				this.player.SetPosition(this.player.getPrevPosition().x-this.player.getHitBox().getWidth(), this.player.getPrevPosition().y);
+			}
+			else{
+				this.player.SetPosition(this.player.getPrevPosition().x+this.player.getHitBox().getWidth(), this.player.getPrevPosition().y);
+			}
+		}
+		this.player.SetDirection(Direction.FACING_UP);
 		
 		this.setLayers();
 	}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="19" height="37" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="pok16" tilewidth="16" tileheight="16" spacing="1" margin="1">
+  <image source="tilesets/pok16.png" width="2738" height="1684"/>
+ </tileset>
+ <layer name="ground" width="19" height="37">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7DJQeLkY4KDo03aSaqqqk9fWuKOq5A=
+  </data>
+ </layer>
+ <layer name="relief" width="19" height="37">
+  <data encoding="base64" compression="zlib">
+   eJwLV2VgCMeBsQFcagnhUbNGzRo1a9QsfHiyGnazpqrh1jNFDTs2Ucdulpk6bj2m6tjxVRxmXcehHoSv4cEwgE8NNvWjAD+YajPQLhgFgxUQk69G8yNtQJYydgwDp5UYGM4A8Vkl4vVQAwAAxCCmjg==
+  </data>
+ </layer>
+ <layer name="first" width="19" height="37">
+  <data encoding="base64" compression="zlib">
+   eJxjYMANJqsxMExBwlPV8CgmAEzUGRhMkbCZOvlmXQXqvYaEr1NgFjVBkDV+PingszV+PingjTgqf7M0+Wb1SqDyQ2TIN2uwuouaYLD6cbCm1Sk2+Pm0BErGDAzKaFjFmDw9h4H4CBo+SsAsfHo2WFHHjwHAuAmkIH5AIBioPwSIPwLxJwrN+gLU/xWIJ9lg5hVSAShvTQOaE6aKmVdIBaC8BTJHTAUVT1AkTv9ERUy9v7VQ1XQSaZaPAiofZA7IbTBwVos0s84iuQNkDrJZlLgL3azh7K6l8ghcpkycWSVAdaVIGFv6ElchzixRFUy96OFFLgCZ04bDHU9x+BWXOC5z8Mnh00NNAACilF1R
+  </data>
+ </layer>
+ <layer name="second" width="19" height="37">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMFjBequBdgHtwVYV6plTqoyK3ysQp/eDAqbeKC3quAtkDrofZ6sRpxddHcgcdLPsJYkzC10dNrPIBSPFXaB0gQzIjUeQOdT04yggDQAA+tMcpQ==
+  </data>
+ </layer>
+ <layer name="colision" width="19" height="37" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgiD/r25IQAEAwIcBCvwAAQ==
+  </data>
+ </layer>
+ <objectgroup name="collision" width="19" height="37">
+  <object x="224" y="382" width="78" height="146"/>
+  <object x="-3" y="381" width="83" height="145"/>
+  <object x="-1" y="1" width="116" height="273"/>
+  <object x="190" y="0" width="117" height="271"/>
+  <object x="88" y="-3" width="132" height="36"/>
+  <object x="214" y="272" width="85" height="33"/>
+  <object x="7" y="272" width="82" height="33"/>
+  <object x="-10" y="560" width="120" height="16"/>
+  <object x="194" y="560" width="112" height="16"/>
+  <object x="-5" y="520" width="22" height="42"/>
+  <object x="286" y="517" width="22" height="50"/>
+  <object x="271" y="324" width="34" height="35"/>
+  <object x="287" y="369" width="16" height="11"/>
+  <object x="-7" y="319" width="40" height="33"/>
+  <object x="-10" y="366" width="27" height="16"/>
+  <object x="-7" y="572" width="313" height="21"/>
+ </objectgroup>
+ <objectgroup name="events" width="19" height="37">
+  <object name="transi" type="map" x="139" y="565" width="25" height="15"/>
+ </objectgroup>
+</map>

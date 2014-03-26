@@ -8,9 +8,9 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "VirtualVisitApplication";
 		cfg.useGL20 = false;
-		cfg.width = 720;
-		cfg.height = 405;
-		
+		cfg.width = 854;
+		cfg.height = 480;
+		cfg.resizable = false;
 		new LwjglApplication(new VVAMain(), cfg);
 	}
 }

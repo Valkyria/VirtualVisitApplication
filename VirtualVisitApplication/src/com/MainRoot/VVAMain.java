@@ -5,6 +5,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL10;
 
 //https://dpk.net/2011/05/01/libgdx-box2d-tiled-maps-full-working-example-part-1/
 

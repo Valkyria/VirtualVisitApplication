@@ -24,6 +24,7 @@ public class Player {
 	private Vector2 position;
 	private Rectangle HitBox;
 	private Vector2 prevPosition;
+	private int prevMap;
 	
 	public Player(Vector2 position){
 		this.position = position;
@@ -83,5 +84,13 @@ public class Player {
 
 	public Vector2 getPrevPosition() {
 		return prevPosition;
+	}
+	public int getPrevMap() {
+		return prevMap;
+	}
+
+	public void setPrevMap(int prevMap) {
+		this.prevMap = prevMap;
+		
 	}
 }
