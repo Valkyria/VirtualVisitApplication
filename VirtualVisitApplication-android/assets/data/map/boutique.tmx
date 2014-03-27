@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="15" height="15" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="pok16" tilewidth="16" tileheight="16" spacing="1" margin="1">
+  <image source="tilesets/pok16.png" width="2738" height="1684"/>
+ </tileset>
+ <layer name="ground" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJyr0GBgqBjFo3gUDxgGADlkjKE=
+  </data>
+ </layer>
+ <layer name="relief" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2B4gF0K5OuNVqSaM0gGANwDAVc=
+  </data>
+ </layer>
+ <layer name="first" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJwr1mBgKAHiYjJoEU0GBlFN8uhJMgwMk4G4E8ieCqSJBWGqDAzGsgwMJkBsCsRmssTrBYErQPVXgfgaEF9H0nseyL4AxBdlsfNhdmMDBXIMDIVAXCSHnY8MCNmDzke2k5A92OyF6SfVXlL8R23/wtxMT3sp9S+utEEIgPQBALLwVrc=
+  </data>
+ </layer>
+ <layer name="second" width="15" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAO+CJNvNqtKlSyFAvQl8XPp5bdhOxB5lNqJ7J+UuylJiDVvwMRzpQCct1MqV8BQQoMAA==
+  </data>
+ </layer>
+ <layer name="colision" width="15" height="15" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUDCQAAAOEAAE=
+  </data>
+ </layer>
+ <objectgroup name="collision" width="15" height="15">
+  <object x="171" y="68" width="25" height="155"/>
+  <object x="105" y="66" width="28" height="155"/>
+  <object x="43" y="100" width="25" height="122"/>
+  <object x="-1" y="-3" width="242" height="33"/>
+  <object x="48" y="20" width="14" height="57"/>
+  <object x="-4" y="61" width="65" height="16"/>
+  <object x="224" y="32" width="15" height="14"/>
+  <object x="225" y="96" width="13" height="14"/>
+  <object x="225" y="161" width="15" height="14"/>
+  <object x="225" y="225" width="14" height="14"/>
+  <object x="0" y="224" width="15" height="15"/>
+  <object x="-2" y="176" width="17" height="14"/>
+  <object x="0" y="129" width="15" height="13"/>
+  <object x="-1" y="81" width="17" height="15"/>
+  <object x="238" y="-15" width="9" height="265"/>
+  <object x="-13" y="-21" width="267" height="20"/>
+  <object x="-8" y="-27" width="9" height="278"/>
+  <object x="-13" y="238" width="261" height="9"/>
+ </objectgroup>
+ <objectgroup name="events" width="15" height="15">
+  <object name="trans" type="mainBat" x="232" y="188" width="14" height="19"/>
+ </objectgroup>
+</map>

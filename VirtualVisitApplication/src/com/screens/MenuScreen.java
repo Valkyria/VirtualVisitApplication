@@ -106,11 +106,11 @@ public class MenuScreen implements Screen {
         	style.font.setScale(1f);
        	    Play = new TextButton("Play !", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/500);
+            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
             
             Quit = new TextButton("Quitter", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/500);
+            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
        }
         
         music = Gdx.audio.newMusic(Gdx.files.internal("data/song/Sneaky Snitch.mp3"));

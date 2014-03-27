@@ -91,6 +91,5 @@ public class Player {
 
 	public void setPrevMap(int prevMap) {
 		this.prevMap = prevMap;
-		
 	}
 }

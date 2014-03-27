@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="pok16" tilewidth="16" tileheight="16" spacing="1" margin="1">
+  <image source="tilesets/pok16.png" width="2738" height="1684"/>
+ </tileset>
+ <layer name="ground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJwT02RgEBvFo3gUj+JRPIpJxAA7HGJx
+  </data>
+ </layer>
+ <layer name="relief" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJwTtmJgEKYi3kJlPApGwWAAGsbU5VMLBFgzMARaU8+8j0CzPlHRvEk2DAyTbTDFB0v4DRVAanjQK/wAizIiSQ==
+  </data>
+ </layer>
+ <layer name="first" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYGBgmGfMQDXApMTAYG8CoSnBMLMGO0B266h/B4d/24wYGNqBuMOIOnwQOKvFwKBpTD0+tcEuBeqaF62IYFMj/NDBYAs/aoKRlP4AtgY7Fw==
+  </data>
+ </layer>
+ <layer name="second" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxLVGQAg0RFyjDMjMEOEkf9Oyj9+8yQuvzBCtZb0cee4Rp+tAIjJf1RGwAA0bcrmA==
+  </data>
+ </layer>
+ <layer name="colision" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup name="collision" width="20" height="20">
+  <object x="0" y="193" width="32" height="31"/>
+  <object x="33" y="107" width="252" height="20"/>
+  <object x="34" y="61" width="252" height="19"/>
+  <object x="33" y="14" width="254" height="19"/>
+  <object x="302" y="16" width="19" height="16"/>
+  <object x="303" y="64" width="17" height="16"/>
+  <object x="305" y="111" width="16" height="17"/>
+  <object x="-5" y="109" width="21" height="20"/>
+  <object x="-3" y="62" width="18" height="18"/>
+  <object x="-6" y="17" width="22" height="15"/>
+  <object x="29" y="145" width="33" height="16"/>
+  <object x="94" y="146" width="32" height="15"/>
+  <object x="159" y="146" width="32" height="14"/>
+  <object x="223" y="146" width="32" height="14"/>
+  <object x="287" y="146" width="28" height="15"/>
+  <object x="287" y="207" width="28" height="17"/>
+  <object x="224" y="207" width="28" height="17"/>
+  <object x="160" y="209" width="30" height="16"/>
+  <object x="96" y="208" width="30" height="17"/>
+  <object x="31" y="271" width="31" height="17"/>
+  <object x="95" y="272" width="32" height="16"/>
+  <object x="159" y="272" width="32" height="17"/>
+  <object x="223" y="273" width="32" height="15"/>
+  <object x="288" y="273" width="30" height="16"/>
+ </objectgroup>
+ <objectgroup name="events" width="20" height="20">
+  <object name="trans" type="mainBat" x="26" y="199" width="19" height="28"/>
+ </objectgroup>
+</map>

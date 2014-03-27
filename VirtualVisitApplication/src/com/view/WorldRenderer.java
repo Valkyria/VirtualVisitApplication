@@ -24,13 +24,13 @@ import com.badlogic.gdx.math.Rectangle;
 public class WorldRenderer {
 	
 	/* Constantes concernant la camera
-	 * Comme on utilise mapRenderer, on est oblig� de multiplier par 32 la taille de la camera.
-	 * Lorsqu'on dessinera nous m�me les layers, il faudra utiliser juste les valeurs 10 et 7, et les ppuX et les ppuY.
+	 * Comme on utilise mapRenderer, on est obligé de multiplier par 32 la taille de la camera.
+	 * Lorsqu'on dessinera nous meme les layers, il faudra utiliser juste les valeurs 10 et 7, et les ppuX et les ppuY.
 	 */
-	private static final float CAMERA_WIDTH = (16*32); //Ici on d�cide du nombre de tiles affich�es � l'�cran.
+	private static final float CAMERA_WIDTH = (16*32); //Ici on décide du nombre de tiles affichées à l'écran.
 	private static final float CAMERA_HEIGHT = (16*18); //Dans ce cas, on affiche 10*7 tiles.
-	private static final int camX = (int) Math.round(CAMERA_WIDTH/ 2f);
-	private static final int camY = (int) Math.round(CAMERA_WIDTH/ 2f);
+	private static int camX = (int) Math.round(CAMERA_WIDTH/ 2f);
+	private static int camY = (int) Math.round(CAMERA_HEIGHT/ 2f);
 	private static final float WALKING_FRAME_DURATION = 0.1f;
 	private static final float fontSize = 0.5f;
 	private static final String panel = "panel";
@@ -38,6 +38,10 @@ public class WorldRenderer {
 	private static final String message = "message";
 	private static final String map = "map";
 	private static final String mainBat = "mainBat";
+	private static final String boutique = "boutique";
+	private static final String infor = "infor";
+	private static final String cantine = "cantine";
+	private static final String multi = "multi";
 	private static final HAlignment align = HAlignment.CENTER;
 			
 	private World world;
@@ -72,15 +76,14 @@ public class WorldRenderer {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		//On dessine la map gr�ce � la methode de mapRenderer.
+		//On dessine la map grace à la methode de mapRenderer.
 		//Decoupage des layers et placement du perso entre les couches
 		cam.position.set(world.getPlayer().GetPosition().x, world.getPlayer().GetPosition().y, 0);
 		cam.update();
 		batch.setProjectionMatrix(cam.combined);
 		
-		batch.begin();
 		mapRenderer.setView(cam);
-		batch.end();
+		
 		// affichage des couches inferieures (par index)
 		mapRenderer.render(new int[]{0,1,2});
 
@@ -108,6 +111,22 @@ public class WorldRenderer {
 			}
 			if(props.get("type").toString().equals(mainBat)){
 				world.setMainBat();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(infor)){
+				world.setInfor();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(boutique)){
+				world.setBoutique();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(cantine)){
+				world.setCantine();
+				this.resetView();
+			}
+			if(props.get("type").toString().equals(multi)){
+				world.setMultimedia();
 				this.resetView();
 			}
 		}
