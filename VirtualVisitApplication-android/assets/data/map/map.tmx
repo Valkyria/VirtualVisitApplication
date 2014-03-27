@@ -309,6 +309,7 @@
   <object x="531" y="1120" width="9" height="13"/>
   <object x="1011" y="592" width="9" height="13"/>
   <object x="913" y="749" width="192" height="114"/>
+  <object x="2" y="1025" width="286" height="26"/>
  </objectgroup>
  <objectgroup name="events" width="80" height="80">
   <object name="BigDoor" type="mainBat" x="496" y="823" width="31" height="15">

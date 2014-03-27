@@ -63,16 +63,6 @@ public class World {
 		}
 	}
 	
-	public void setHouse(){
-		Texture.setEnforcePotImages(false);
-		this.player.getPrevPosition().set(this.player.GetPosition());
-		this.player.SetPosition(144,60);
-		this.player.SetDirection(Direction.FACING_UP);
-		this.map = this.loader.load("data/map/house.tmx", this.params);
-		
-		this.setLayers();
-	}
-	
 	public void setMap(){
 		Texture.setEnforcePotImages(false);
 		if(this.player.getPrevMap() == 1){
@@ -87,6 +77,17 @@ public class World {
 		this.map = this.loader.load("data/map/map.tmx", this.params);
 		this.setLayers();
 	}
+	
+	/*________________________________________________________________
+    __  __               ____        _   _                      _     __ 
+   |  \/  |             |  _ \      | | (_)                    | |   /_ |
+   | \  / | __ _ _ __   | |_) | __ _| |_ _ _ __ ___   ___ _ __ | |_   | |
+   | |\/| |/ _` | '_ \  |  _ < / _` | __| | '_ ` _ \ / _ \ '_ \| __|  | |
+   | |  | | (_| | |_) | | |_) | (_| | |_| | | | | | |  __/ | | | |_   | |
+   |_|  |_|\__,_| .__/  |____/ \__,_|\__|_|_| |_| |_|\___|_| |_|\__|  |_|
+                | |                                                      
+                |_|                                                      
+	_____________________________________________________________________*/
 	
 	public void setMainBat(){
 		Texture.setEnforcePotImages(false);
@@ -108,7 +109,6 @@ public class World {
 				this.player.SetDirection(Direction.FACING_RIGHT);
 			}
 		}
-		
 		
 		this.setLayers();
 	}
@@ -151,6 +151,37 @@ public class World {
 		
 		this.player.SetDirection(Direction.FACING_LEFT);
 		this.map = this.loader.load("data/map/multimedia.tmx", this.params);
+		
+		this.setLayers();
+	}
+	/*____________________________________________________________________________
+        __  __               ____        _   _                      _     ___  
+       |  \/  |             |  _ \      | | (_)                    | |   |__ \ 
+       | \  / | __ _ _ __   | |_) | __ _| |_ _ _ __ ___   ___ _ __ | |_     ) |
+       | |\/| |/ _` | '_ \  |  _ < / _` | __| | '_ ` _ \ / _ \ '_ \| __|   / / 
+       | |  | | (_| | |_) | | |_) | (_| | |_| | | | | | |  __/ | | | |_   / /_ 
+       |_|  |_|\__,_| .__/  |____/ \__,_|\__|_|_| |_| |_|\___|_| |_|\__| |____|
+                    | |                                                        
+                    |_|                                                        
+	 _____________________________________________________________________________*/
+	
+	/*_______________________________________________________
+        __  __               _____  _                    
+       |  \/  |             |  __ \(_)                   
+       | \  / | __ _ _ __   | |  | |___   _____ _ __ ___ 
+       | |\/| |/ _` | '_ \  | |  | | \ \ / / _ \ '__/ __|
+       | |  | | (_| | |_) | | |__| | |\ V /  __/ |  \__ \
+       |_|  |_|\__,_| .__/  |_____/|_| \_/ \___|_|  |___/
+                    | |                                  
+                    |_|                                  
+    __________________________________________________________*/
+	
+	public void setHouse(){
+		Texture.setEnforcePotImages(false);
+		this.player.getPrevPosition().set(this.player.GetPosition());
+		this.player.SetPosition(144,60);
+		this.player.SetDirection(Direction.FACING_UP);
+		this.map = this.loader.load("data/map/house.tmx", this.params);
 		
 		this.setLayers();
 	}

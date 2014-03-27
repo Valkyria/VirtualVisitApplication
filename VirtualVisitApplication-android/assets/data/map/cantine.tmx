@@ -31,7 +31,7 @@
  <objectgroup name="collision" width="20" height="32">
   <object x="35" y="178" width="139" height="12"/>
   <object x="162" y="179" width="11" height="170"/>
-  <object x="124" y="382" width="179" height="16"/>
+  <object x="123" y="382" width="179" height="16"/>
   <object x="126" y="416" width="17" height="16"/>
   <object x="138" y="391" width="28" height="24"/>
   <object x="176" y="390" width="78" height="25"/>
@@ -62,7 +62,7 @@
   <object x="123" y="494" width="201" height="21"/>
   <object x="-1" y="221" width="130" height="294"/>
   <object x="264" y="111" width="32" height="32"/>
-  <object x="318" y="-18" width="18" height="538"/>
+  <object x="320" y="-17" width="18" height="538"/>
   <object x="-6" y="-8" width="8" height="521"/>
  </objectgroup>
  <objectgroup name="events" width="20" height="32">
