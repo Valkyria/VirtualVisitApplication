@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="com.model.World" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/model/World.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="456" y="153"/>    
+    <position height="-1" width="-1" x="456" y="191"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -59,10 +59,10 @@
   <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="10" name="world">        
-        <position height="18" width="36" x="500" y="-14"/>      
+        <position height="18" width="36" x="500" y="24"/>      
       </attribute>      
       <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="16" width="23" x="547" y="2"/>      
+        <position height="16" width="23" x="547" y="40"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
@@ -71,10 +71,10 @@
   <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="13" name="player">        
-        <position height="18" width="38" x="708" y="-159"/>      
+        <position height="18" width="38" x="704" y="-186"/>      
       </attribute>      
       <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="16" width="23" x="767" y="-157"/>      
+        <position height="16" width="23" x="774" y="-185"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
@@ -93,10 +93,10 @@
   <association id="18">    
     <end type="SOURCE" refId="2" navigable="false">      
       <attribute id="19" name="world">        
-        <position height="18" width="36" x="317" y="74"/>      
+        <position height="18" width="36" x="317" y="112"/>      
       </attribute>      
       <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="16" width="23" x="345" y="92"/>      
+        <position height="16" width="23" x="345" y="130"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
