@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="com.controllers.PlayerController" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/controllers/PlayerController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="754" y="-390"/>    
+    <position height="-1" width="-1" x="640" y="-337"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="com.view.WorldRenderer" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/view/WorldRenderer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="153" y="-80"/>    
+    <position height="-1" width="-1" x="153" y="-52"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="com.model.Player" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/model/Player.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="753" y="86"/>    
+    <position height="-1" width="-1" x="640" y="153"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="com.model.World" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/model/World.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="456" y="191"/>    
+    <position height="-1" width="-1" x="402" y="151"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="com.screens.GameScreen" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/screens/GameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="459" y="-303"/>    
+    <position height="-1" width="-1" x="408" y="-340"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -47,11 +47,15 @@
     </display>  
   </class>  
   <association id="6">    
+    <bendpoint x="372" y="-624"/>    
+    <bendpoint x="161" y="-624"/>    
     <end type="SOURCE" refId="5" navigable="false">      
       <attribute id="7" name="renderer">        
-        <position height="18" width="50" x="300" y="-171"/>      
+        <position height="18" width="50" x="104" y="-613"/>      
       </attribute>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="16" width="23" x="169" y="-612"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
@@ -59,10 +63,10 @@
   <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="10" name="world">        
-        <position height="18" width="36" x="500" y="24"/>      
+        <position height="18" width="36" x="493" y="-24"/>      
       </attribute>      
       <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="16" width="23" x="547" y="40"/>      
+        <position height="16" width="23" x="493" y="-4"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
@@ -71,10 +75,10 @@
   <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
       <attribute id="13" name="player">        
-        <position height="18" width="38" x="704" y="-186"/>      
+        <position height="18" width="38" x="598" y="-124"/>      
       </attribute>      
       <multiplicity id="14" minimum="0" maximum="1">        
-        <position height="16" width="23" x="774" y="-185"/>      
+        <position height="16" width="23" x="647" y="-122"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
@@ -84,19 +88,21 @@
     <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="16" name="player"/>      
       <multiplicity id="17" minimum="0" maximum="1">        
-        <position height="16" width="23" x="617" y="123"/>      
+        <position height="16" width="23" x="510" y="162"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="18">    
+    <bendpoint x="147" y="512"/>    
+    <bendpoint x="403" y="513"/>    
     <end type="SOURCE" refId="2" navigable="false">      
       <attribute id="19" name="world">        
-        <position height="18" width="36" x="317" y="112"/>      
+        <position height="18" width="36" x="362" y="363"/>      
       </attribute>      
       <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="16" width="23" x="345" y="130"/>      
+        <position height="16" width="23" x="411" y="364"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
@@ -111,12 +117,14 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="24">    
+    <bendpoint x="446" y="-621"/>    
+    <bendpoint x="641" y="-621"/>    
     <end type="SOURCE" refId="5" navigable="false">      
       <attribute id="25" name="playerController">        
-        <position height="18" width="84" x="561" y="-378"/>      
+        <position height="18" width="84" x="548" y="-518"/>      
       </attribute>      
       <multiplicity id="26" minimum="0" maximum="1">        
-        <position height="16" width="23" x="623" y="-342"/>      
+        <position height="16" width="23" x="652" y="-516"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
