@@ -94,7 +94,7 @@ public class MenuScreen implements Screen {
         
         if(game.Type.equals(ApplicationType.Android)){
         	 style.font.setScale(2);
-        	 Play = new TextButton("Play !", style);
+        	 Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
              table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
              table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
              
@@ -104,7 +104,7 @@ public class MenuScreen implements Screen {
         }
         else{
         	style.font.setScale(1f);
-       	    Play = new TextButton("Play !", style);
+       	    Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
             

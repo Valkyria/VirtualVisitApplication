@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.model.Webservice;
 
 public class LoadingScreen implements Screen {
 	
@@ -23,6 +24,7 @@ public class LoadingScreen implements Screen {
 	private NinePatch full;
 	private Texture Background;
 	private TextureRegion BackgroundRegion;
+	private Webservice webservice;
 	
 	public LoadingScreen(VVAMain pGame){
 		game=pGame;
@@ -66,7 +68,8 @@ public class LoadingScreen implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-				
+		 webservice = new Webservice();
+		 game.ListUser = webservice.getTest();
 		 font=new BitmapFont();
 		 batch=new SpriteBatch();
 		 emptyT=new Texture(Gdx.files.internal("data/img/empty.png"));
