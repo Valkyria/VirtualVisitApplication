@@ -4,26 +4,19 @@ package com.screens;
 import java.util.ArrayList;
 
 import com.model.User;
-import com.screens.GameScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.Application.ApplicationType;
 
 public class LoginScreen implements Screen {
@@ -32,10 +25,7 @@ public class LoginScreen implements Screen {
     private Texture Background;
     private VVAMain game;
     private TextureRegion BackgroundRegion;
-    private TextureRegion[] ButtonStyle;
     private Stage stage;
-    private BitmapFont buttonFont;
-    private TextureAtlas atlas;
     private TextButton Connexion, Ignorer;
     private Music music;
     private ArrayList<User> ListUser;
@@ -47,7 +37,6 @@ public class LoginScreen implements Screen {
 		this.ListUser = ListUser;
 		
 		Background = new Texture("data/img/bg_login.png");
-		buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
 	}
 	
 	@Override

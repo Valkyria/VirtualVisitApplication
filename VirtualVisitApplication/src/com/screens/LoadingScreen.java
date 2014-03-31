@@ -73,7 +73,7 @@ public class LoadingScreen implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		 webservice = new Webservice();
-		 ListUser = webservice.getTest();
+		 ListUser = webservice.getAllVacanciers();
 		 font=new BitmapFont();
 		 batch=new SpriteBatch();
 		 emptyT=new Texture(Gdx.files.internal("data/img/empty.png"));

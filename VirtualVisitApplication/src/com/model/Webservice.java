@@ -18,7 +18,7 @@ public class Webservice {
 		ListUser = new ArrayList<User>();
 	}
 	
-	public ArrayList<User> getTest(){                 
+	public ArrayList<User> getAllVacanciers(){                 
 		
 		try {
 			URL url = new URL("http://vvaprojectcedrict.olikeopen.com/Webservice/allUsers");

@@ -1,141 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="com.screens.GameScreen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/src/com/screens/GameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="946" y="134"/>    
+  <class id="1" language="java" name="com.model.User" project="VirtualVisitApplication" 
+    file="/VirtualVisitApplication/src/com/model/User.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="164" y="163"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.screens.LoadingScreen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/src/com/screens/LoadingScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="108" y="160"/>    
+  <class id="2" language="java" name="com.model.Webservice" project="VirtualVisitApplication" 
+    file="/VirtualVisitApplication/src/com/model/Webservice.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="187" y="510"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.screens.MenuScreen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/src/com/screens/MenuScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="313" y="167"/>    
+  <class id="3" language="java" name="com.screens.AccountScreen" project="VirtualVisitApplication" 
+    file="/VirtualVisitApplication/src/com/screens/AccountScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="787" y="71"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="com.badlogic.gdx.Screen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/libs/gdx.jar" binary="true" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="409" y="-146"/>    
+  <class id="4" language="java" name="com.screens.LoginScreen" project="VirtualVisitApplication" 
+    file="/VirtualVisitApplication/src/com/screens/LoginScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="496" y="266"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </interface>  
+  </class>  
   <class id="5" language="java" name="com.MainRoot.VVAMain" project="VirtualVisitApplication" 
     file="/VirtualVisitApplication/src/com/MainRoot/VVAMain.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="409" y="477"/>    
+    <position height="-1" width="-1" x="561" y="-44"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.screens.LoginScreen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/src/com/screens/LoginScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="528" y="168"/>    
+  <class id="6" language="java" name="com.screens.LoadingScreen" project="VirtualVisitApplication" 
+    file="/VirtualVisitApplication/src/com/screens/LoadingScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="727" y="436"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.screens.AccountScreen" project="VirtualVisitApplication" 
-    file="/VirtualVisitApplication/src/com/screens/AccountScreen.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="746" y="153"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <realization id="8">    
-    <bendpoint x="758" y="-151"/>    
-    <bendpoint x="579" y="-150"/>    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="9">    
-    <bendpoint x="638" y="-130"/>    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="10">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="11">    
-    <bendpoint x="127" y="-149"/>    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="12">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="13">    
-    <bendpoint x="127" y="480"/>    
+  <association id="7">    
     <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="8" name="ListUser"/>      
+      <multiplicity id="9" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="10">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="11" name="ListUser"/>      
+      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="14" name="game"/>      
       <multiplicity id="15" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
+    <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="16">    
-    <bendpoint x="641" y="404"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="17" name="game"/>      
-      <multiplicity id="18" minimum="0" maximum="1"/>    
+    <bendpoint x="576" y="477"/>    
+    <bendpoint x="349" y="472"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="17" name="ListUser"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="19">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="20" name="game"/>      
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="20" name="currentUser"/>      
       <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="22">    
+    <bendpoint x="650" y="133"/>    
     <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="23" name="game"/>      
       <multiplicity id="24" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
+    <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="25">    
-    <bendpoint x="765" y="480"/>    
-    <bendpoint x="580" y="480"/>    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="26" name="game"/>      
+    <bendpoint x="592" y="514"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="26" name="webservice"/>      
       <multiplicity id="27" minimum="0" maximum="1"/>    
     </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="29" name="game"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="false" multiplicity="true"/>  
+    <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
     <operations public="true" package="true" protected="true" private="true" static="true"/>  
   </classifier-display>  
-  <association-display labels="false" multiplicity="true"/>
+  <association-display labels="true" multiplicity="true"/>
 </class-diagram>
