@@ -30,7 +30,7 @@ public class MenuScreen implements Screen {
     private Stage stage;
     private BitmapFont buttonFont;
     private TextureAtlas atlas;
-    private TextButton Play, Quit;
+    private TextButton Play, Quit, Info;
     private Music music;
     
 	public MenuScreen(VVAMain game){
@@ -43,9 +43,7 @@ public class MenuScreen implements Screen {
         ButtonStyle[0] = atlas.findRegion("menu_btt0");
         ButtonStyle[1] = atlas.findRegion("menu_btt1");
         
-        //FileHandle fontFile = Gdx.files.internal("data/font/SantasSleighFull.ttf");
-       buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
-       //buttonFont= new BitmapFont();
+        buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
 	}
 	
 	@Override
@@ -53,7 +51,7 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
         spriteBatch.draw(BackgroundRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        
+        buttonFont.draw(spriteBatch, "Bienvenu "+game.currentUser.getPrenom()+" !",0,Gdx.graphics.getHeight());
         spriteBatch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -63,9 +61,11 @@ public class MenuScreen implements Screen {
         if(Quit.isPressed()){
         	Gdx.app.exit();
         }
-        /*if (Gdx.input.isKeyPressed(Keys.BACK)){
-        	Gdx.app.exit();
-        }*/
+        if(game.currentUser.getId() != null){
+        	if (Info.isPressed()){
+        		this.game.setScreen(new AccountScreen(game));
+        	}
+        }
 
 	}
 
@@ -91,27 +91,40 @@ public class MenuScreen implements Screen {
         style.font = buttonFont;
         
         table.padTop(Gdx.graphics.getWidth()/5);
-        
+
         if(game.Type.equals(ApplicationType.Android)){
-        	 style.font.setScale(2);
-        	 Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
+           	 style.font.setScale(2);
+           	 Play = new TextButton("Visiter", style);
              table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
              table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
              
+             if(game.currentUser.getId() != null){
+            	 Info= new TextButton("Mon Compte", style);
+                 table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
+                 table.add(Info).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+             }
              Quit = new TextButton("Quitter", style);
              table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
              table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
-        }
-        else{
-        	style.font.setScale(1f);
-       	    Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
+         }
+        	
+         else{
+           	style.font.setScale(1f);
+          	Play = new TextButton("Visiter", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            
+            if(game.currentUser.getId() != null){
+            	Info= new TextButton("Mon Compte", style);
+                table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
+                table.add(Info).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            }
             
             Quit = new TextButton("Quitter", style);
             table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
             table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
-       }
+          }
+        
         
         music = Gdx.audio.newMusic(Gdx.files.internal("data/song/Sneaky Snitch.mp3"));
         music.setLooping(true);

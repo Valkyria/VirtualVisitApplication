@@ -1,11 +1,15 @@
 package com.screens;
 
 
+import java.util.ArrayList;
+
+import com.model.User;
 import com.screens.GameScreen;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,9 +18,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.Application.ApplicationType;
 
@@ -30,22 +36,18 @@ public class LoginScreen implements Screen {
     private Stage stage;
     private BitmapFont buttonFont;
     private TextureAtlas atlas;
-    private TextButton Play, Quit;
+    private TextButton Connexion, Ignorer;
     private Music music;
+    private ArrayList<User> ListUser;
+    private TextField login, mdp;
     
-	public LoginScreen(VVAMain game){
+	public LoginScreen(VVAMain game, ArrayList<User> ListUser){
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
-		Background = new Texture("data/img/bg_menu.png");
-		atlas = game.assets.get("data/img/btt.atlas");
-
-		ButtonStyle = new AtlasRegion [2];
-        ButtonStyle[0] = atlas.findRegion("menu_btt0");
-        ButtonStyle[1] = atlas.findRegion("menu_btt1");
-        
-        //FileHandle fontFile = Gdx.files.internal("data/font/SantasSleighFull.ttf");
-       buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
-       //buttonFont= new BitmapFont();
+		this.ListUser = ListUser;
+		
+		Background = new Texture("data/img/bg_login.png");
+		buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
 	}
 	
 	@Override
@@ -57,15 +59,21 @@ public class LoginScreen implements Screen {
         spriteBatch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-        if(Play.isPressed()){
-       		this.game.setScreen(new GameScreen(game));
+        
+        if(Connexion.isPressed()){
+        	String strLog =login.getText();
+        	String strMdp =mdp.getText();
+        	for(User usr: ListUser){
+        		if (usr.getId().equals(strLog) && usr.getMdp().equals(strMdp)){
+        			game.currentUser = usr;
+        			this.game.setScreen(new MenuScreen(game));
+        		}
+        	}
         }
-        if(Quit.isPressed()){
-        	Gdx.app.exit();
+        if(Ignorer.isPressed()){
+        	game.currentUser = new User(null, null, null, "Invite", null, null, null, null);
+        	this.game.setScreen(new MenuScreen(game));
         }
-        /*if (Gdx.input.isKeyPressed(Keys.BACK)){
-        	Gdx.app.exit();
-        }*/
 
 	}
 
@@ -85,32 +93,45 @@ public class LoginScreen implements Screen {
         table.setFillParent(true);
         stage.addActor(table);
         
-        TextButtonStyle style = new TextButtonStyle();
-        style.up = new TextureRegionDrawable(ButtonStyle[0]);
-        style.down = new TextureRegionDrawable(ButtonStyle[1]);
-        style.font = buttonFont;
+        Skin skin;
+        skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
         
-        table.padTop(Gdx.graphics.getWidth()/5);
+        login =new TextField("Identifiant",skin);
+        mdp =new TextField("Mot de passe",skin);
+        table.padTop(Gdx.graphics.getHeight()/10);
         
         if(game.Type.equals(ApplicationType.Android)){
-        	 style.font.setScale(2);
-        	 Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
-             table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
-             table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+        	 skin.getFont("default-font").setScale(2);
+        	 
+        	 table.row().pad(Gdx.graphics.getHeight()/20, 0, 0, 0);
+        	 table.add(login).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+        	 
+        	 table.row().pad(Gdx.graphics.getHeight()/20, 0, 0, 0);
+             table.add(mdp).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+        	 
+        	 Connexion = new TextButton("Connexion", skin);
+             table.row().pad(Gdx.graphics.getHeight()/20, 0, 0, 0);
+             table.add(Connexion).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
              
-             Quit = new TextButton("Quitter", style);
-             table.row().pad(Gdx.graphics.getHeight()*100/(float)Gdx.graphics.getHeight(), (float)Gdx.graphics.getWidth()/2, 0, 0);
-             table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
+             Ignorer = new TextButton("Ignorer", skin);
+             table.row().pad(Gdx.graphics.getHeight()/20, 0, 0, 0);
+             table.add(Ignorer).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/800);
         }
         else{
-        	style.font.setScale(1f);
-       	    Play = new TextButton(String.valueOf(game.ListUser.get(0).getNom()), style);
-            table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Play).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+        	table.row().pad(0, 0, 0, 0);
+        	table.add(login);
+        	
+        	table.row().pad(10, 0, 0, 0);
+            table.add(mdp);
             
-            Quit = new TextButton("Quitter", style);
-            table.row().pad(0, (float)Gdx.graphics.getWidth()/2, 0, 0);
-            table.add(Quit).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/600);
+            skin.getFont("default-font").setScale(1f);
+       	    Connexion = new TextButton("Connexion", skin);
+            table.row().pad(20, 0, 0, 0);
+            table.add(Connexion).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/400);
+            
+            Ignorer = new TextButton("Ignorer", skin);
+            table.row().pad(15, 0, 0, 0);
+            table.add(Ignorer).fill((float)Gdx.graphics.getWidth()/1000, (float)Gdx.graphics.getHeight()/400);
        }
         
         music = Gdx.audio.newMusic(Gdx.files.internal("data/song/Sneaky Snitch.mp3"));

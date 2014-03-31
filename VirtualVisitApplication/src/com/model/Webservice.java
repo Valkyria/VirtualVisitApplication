@@ -30,17 +30,17 @@ public class Webservice {
 				JsonValue json = new JsonReader().parse(Jstring);
 				JsonIterator it = json.iterator();
 				while(it.hasNext()){
+					
 					JsonValue userJson = it.next();
 					String Type = userJson.get("Webservice").getString("type_profil_id");
 					if(Type.equals("Vacancier")){
-						if(it.hasNext()){
 							ListUser.add(new User(userJson.get("Webservice").getString("id"), userJson.get("Webservice").getString("MDP"), 
 								userJson.get("Webservice").getString("NOMPROFIL"), userJson.get("Webservice").getString("PRENOMPROFIL"), 
 								userJson.get("Webservice").getString("DATEDEBSEJOUR"), userJson.get("Webservice").getString("DATEFINSEJOUR"), 
 								userJson.get("Webservice").getString("DATEINSCRIP"), userJson.get("Webservice").getString("type_profil_id")));
 						}
 					}
-				}
+				
 				
 			}
 			rd.close();
@@ -51,7 +51,6 @@ public class Webservice {
 		}
 		return ListUser;
 	}
-	
 }
 	
 

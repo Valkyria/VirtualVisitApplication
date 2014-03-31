@@ -73,5 +73,14 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public String toString(){
+		String newLine = "\n";
+		return "Identifiant: "+this.id+newLine+
+				"Nom: "+this.nom+newLine+
+				"Prenom: "+this.prenom+newLine+
+				"Date d inscription: "+this.DtInscription+newLine+
+				"Date du debut sejour: "+this.DtDebut+newLine+
+				"Date de fin du sejour: "+this.DtFin;
+	}
 }

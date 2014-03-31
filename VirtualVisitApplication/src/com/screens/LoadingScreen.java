@@ -1,5 +1,7 @@
 package com.screens;
 
+import java.util.ArrayList;
+
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.model.User;
 import com.model.Webservice;
 
 public class LoadingScreen implements Screen {
@@ -25,11 +28,12 @@ public class LoadingScreen implements Screen {
 	private Texture Background;
 	private TextureRegion BackgroundRegion;
 	private Webservice webservice;
+	private ArrayList<User> ListUser;
 	
 	public LoadingScreen(VVAMain pGame){
 		game=pGame;
 		game.assets=new AssetManager();
-		
+		ListUser = new ArrayList<User>();
 		game.assets.load("data/img/btt.atlas",TextureAtlas.class);
 		
 		//________________________________________________________________________
@@ -54,8 +58,8 @@ public class LoadingScreen implements Screen {
 		 batch.end();
 		 
 		 if(game.assets.update()){
-			game.setScreen(new MenuScreen(game));
-			}
+			game.setScreen(new LoginScreen(game, ListUser));
+		 }
 
 	}
 
@@ -69,7 +73,7 @@ public class LoadingScreen implements Screen {
 	public void show() {
 		// TODO Auto-generated method stub
 		 webservice = new Webservice();
-		 game.ListUser = webservice.getTest();
+		 ListUser = webservice.getTest();
 		 font=new BitmapFont();
 		 batch=new SpriteBatch();
 		 emptyT=new Texture(Gdx.files.internal("data/img/empty.png"));
@@ -77,7 +81,7 @@ public class LoadingScreen implements Screen {
 		 empty=new NinePatch(new TextureRegion(emptyT,24,24),8,8,8,8);
 		 full=new NinePatch(new TextureRegion(fullT,24,24),8,8,8,8);
 		 Texture.setEnforcePotImages(false);
-		 Background = new Texture(Gdx.files.internal("data/img/bg_menu.png"));
+		 Background = new Texture(Gdx.files.internal("data/img/bg_menu2.png"));
 		 
 	     BackgroundRegion=new TextureRegion(Background,0, 0, Background.getWidth(), Background.getHeight());
 	}

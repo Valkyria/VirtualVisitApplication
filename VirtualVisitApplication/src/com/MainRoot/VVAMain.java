@@ -1,7 +1,5 @@
 package com.MainRoot;
 
-import java.util.ArrayList;
-
 import com.model.User;
 import com.screens.LoadingScreen;
 import com.badlogic.gdx.Application.ApplicationType;
@@ -14,7 +12,7 @@ import com.badlogic.gdx.assets.AssetManager;
 public class VVAMain extends Game {
 	public AssetManager assets;
 	public ApplicationType Type;
-	public ArrayList<User> ListUser;
+	public User currentUser;
 	
 	@Override
 	public void create() {
