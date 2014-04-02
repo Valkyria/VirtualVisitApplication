@@ -8,10 +8,15 @@ import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -30,12 +35,16 @@ public class LoginScreen implements Screen {
     private Music music;
     private ArrayList<User> ListUser;
     private TextField login, mdp;
+    private ShapeRenderer shapeRenderer;
+    private BitmapFont buttonFont;
+    private String status;
     
 	public LoginScreen(VVAMain game, ArrayList<User> ListUser){
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
 		this.ListUser = ListUser;
-		
+		new Vector2();
+		this.shapeRenderer = new ShapeRenderer();
 		Background = new Texture("data/img/bg_login.png");
 	}
 	
@@ -44,7 +53,7 @@ public class LoginScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         spriteBatch.begin();
         spriteBatch.draw(BackgroundRegion, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        
+        buttonFont.draw(spriteBatch, status, Gdx.graphics.getHeight()/20*2, Gdx.graphics.getHeight()-(Gdx.graphics.getHeight()/40));
         spriteBatch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -63,7 +72,9 @@ public class LoginScreen implements Screen {
         	game.currentUser = new User(null, null, null, "Invite", null, null, null, null);
         	this.game.setScreen(new MenuScreen(game));
         }
-
+        shapeRenderer.begin(ShapeType.Filled);
+        shapeRenderer.circle(Gdx.graphics.getHeight()/20, Gdx.graphics.getHeight()-(Gdx.graphics.getHeight()/20),Gdx.graphics.getHeight()/70);
+        shapeRenderer.end();
 	}
 
 	@Override
@@ -81,6 +92,7 @@ public class LoginScreen implements Screen {
         Table table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
+        buttonFont= new BitmapFont(Gdx.files.internal("data/font/SantasSleighFull.fnt"));
         
         Skin skin;
         skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
@@ -127,7 +139,22 @@ public class LoginScreen implements Screen {
         music.setLooping(true);
         music.setVolume(0.2f);
         music.play();
-       
+        
+        if(game.Type.equals(ApplicationType.Android)){
+       	 	buttonFont.setScale(1.8f);
+        }
+        else{
+        	buttonFont.setScale(0.8f);
+        }
+        
+        if(this.ListUser.isEmpty()){
+        	shapeRenderer.setColor(Color.RED);
+        	status = "Server Offline";
+        }
+        else{
+        	shapeRenderer.setColor(Color.GREEN);
+        	status = "Server Online";
+        }
 	}
 
 	@Override

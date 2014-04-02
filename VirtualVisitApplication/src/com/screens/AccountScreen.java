@@ -48,7 +48,6 @@ public class AccountScreen implements Screen
             
             heightMessage = buttonFont.getBounds(game.currentUser.toString()).height;
     		widthMessage = buttonFont.getBounds(game.currentUser.toString()).width;
-    		System.out.println(widthMessage+" "+heightMessage+"\n"+Gdx.graphics.getWidth()+" "+Gdx.graphics.getHeight());
             Skin skin;
             skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
             
@@ -85,7 +84,7 @@ public class AccountScreen implements Screen
 	        	 buttonFont.drawMultiLine(spriteBatch, game.currentUser.toString(), Gdx.graphics.getWidth()/2-widthMessage/4.5f, Gdx.graphics.getHeight()/2+heightMessage*5f);
 	        }
 	        else{
-	        	 buttonFont.drawMultiLine(spriteBatch, game.currentUser.toString(), Gdx.graphics.getWidth()/2-widthMessage/9.5f, Gdx.graphics.getHeight()/2+heightMessage*2f);
+	        	 buttonFont.drawMultiLine(spriteBatch, game.currentUser.toString(), Gdx.graphics.getWidth()/2-widthMessage/9.5f, Gdx.graphics.getHeight()/2+heightMessage*3f);
 	        }
 	       
 	        spriteBatch.end();
