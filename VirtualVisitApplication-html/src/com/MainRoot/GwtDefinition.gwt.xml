@@ -5,6 +5,9 @@
 	<inherits name='aurelienribon.bodyeditorloader' />
 	<inherits name='aurelienribon.tweenengine' />
 	<inherits name='PPE2MainController' />
+	<inherits name='com.model.User' />
+	<inherits name='com.screens.LoadingScreen' />
+	
 	<entry-point class='com.MainRoot.client.GwtLauncher' />
 	<set-configuration-property name="gdx.assetpath" value="../VirtualVisitApplication-android/assets" />
 </module>

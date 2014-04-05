@@ -20,7 +20,7 @@
  </layer>
  <layer name="second" width="19" height="37">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMFjBequBdgHtwVYV6plTqoyK3ysQp/eDAqbeKC3quAtkDrofZ6sRpxddHcgcdLPsJYkzC10dNrPIBSPFXaB0gQzIjUeQOdT04yggDQAA+tMcpQ==
+   eJxjYBgFo2AUjIJRMFjBequBdgHtwVYV6plTqoyK3ysQp/eDAqbeKC3quAtkDsyPP3QYGH4C8Ww14vSC1P0Cqv+tA+GDzIGZNVOXgWEWENtLEmcWSN1soPo5uphmwdxFChju7gIBdHeB0gWKPAnxiAxA5lAz3Y8C0gAA6LIzaQ==
   </data>
  </layer>
  <layer name="colision" width="19" height="37" visible="0">
@@ -74,9 +74,37 @@
   </object>
   <object name="trans" type="infor" x="261" y="327" width="24" height="26"/>
   <object name="trans" type="boutique" x="106" y="218" width="15" height="22"/>
-  <object x="305" y="220" width="6" height="302"/>
-  <object x="-6" y="239" width="6" height="291"/>
   <object name="trans" type="cantine" x="184" y="218" width="15" height="22"/>
   <object name="trans" type="multi" x="17" y="327" width="24" height="26"/>
+  <object name="npc_A1" type="npc_A1" x="218" y="471" width="28" height="14">
+   <properties>
+    <property name="message" value=""/>
+   </properties>
+  </object>
+  <object name="npc_A2" type="npc_A2" x="218" y="407" width="28" height="13">
+   <properties>
+    <property name="message" value=""/>
+   </properties>
+  </object>
+  <object name="npc_A1" type="npc_A1" x="58" y="473" width="28" height="14">
+   <properties>
+    <property name="message" value=""/>
+   </properties>
+  </object>
+  <object name="npc_A2" type="npc_A2" x="59" y="410" width="28" height="13">
+   <properties>
+    <property name="message" value=""/>
+   </properties>
+  </object>
+  <object name="panel1" type="panel" x="218" y="438" width="28" height="13">
+   <properties>
+    <property name="message" value="La cantine se trouve tout droit a droite"/>
+   </properties>
+  </object>
+  <object name="panel1" type="panel" x="59" y="441" width="28" height="12">
+   <properties>
+    <property name="message" value="La boutique se trouve tout droit a gauche"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

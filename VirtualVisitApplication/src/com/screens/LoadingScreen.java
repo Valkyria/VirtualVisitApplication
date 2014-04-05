@@ -30,10 +30,13 @@ public class LoadingScreen implements Screen {
 	private Webservice webservice;
 	private ArrayList<User> ListUser;
 	
+	
 	public LoadingScreen(VVAMain pGame){
 		game=pGame;
 		game.assets=new AssetManager();
 		ListUser = new ArrayList<User>();
+		webservice = new Webservice();
+		ListUser = webservice.getAllVacanciers();
 		game.assets.load("data/img/btt.atlas",TextureAtlas.class);
 		
 		//________________________________________________________________________
@@ -72,8 +75,6 @@ public class LoadingScreen implements Screen {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		 webservice = new Webservice();
-		 ListUser = webservice.getAllVacanciers();
 		 font=new BitmapFont();
 		 batch=new SpriteBatch();
 		 emptyT=new Texture(Gdx.files.internal("data/img/empty.png"));

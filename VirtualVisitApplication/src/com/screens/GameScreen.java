@@ -55,7 +55,7 @@ public class GameScreen implements Screen, InputProcessor {
 		// Ajouter un nouveau world, un nouveau worldRenderer, et un nouveau
 		// PlayerController
 		this.world = new World();
-		this.renderer = new WorldRenderer(world);
+		this.renderer = new WorldRenderer(world, this.game);
 		this.playerController = new PlayerController(world);
 		Gdx.input.setInputProcessor(this);
 		Gdx.input.setCatchBackKey(true);

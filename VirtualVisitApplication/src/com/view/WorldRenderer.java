@@ -1,9 +1,15 @@
 package com.view;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.model.Menu;
 import com.model.Player;
 import com.model.Player.Direction;
 import com.model.Player.State;
 import com.model.World;
+import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,7 +48,10 @@ public class WorldRenderer {
 	private static final String infor = "infor";
 	private static final String cantine = "cantine";
 	private static final String multi = "multi";
+	private static final String npc_A1 = "npc_A1";
+	private static final String npc_A2 = "npc_A2";
 	private static final HAlignment align = HAlignment.CENTER;
+	private VVAMain game;
 			
 	private World world;
 	private OrthographicCamera cam;
@@ -59,9 +68,9 @@ public class WorldRenderer {
 	
 	private float imgWidth, imgHeight, StateTime, heightMessage, widthMessage;
 	
-	public WorldRenderer(World world){
+	public WorldRenderer(World world, VVAMain g){
 		this.world = world;
-		
+		this.game = g;
 		this.cam = new OrthographicCamera(CAMERA_WIDTH, CAMERA_HEIGHT);
 		this.cam.position.set(camX, camY, 0);
 		this.cam.update();
@@ -128,6 +137,59 @@ public class WorldRenderer {
 			if(props.get("type").toString().equals(multi)){
 				world.setMultimedia();
 				this.resetView();
+			}
+			
+			if(props.get("type").toString().equals(npc_A1)){
+				String value ="";
+				String joursBeg, joursEnd ="";
+				int TotDiffBeg=0;
+				int TotDiffEnd=0;
+				if(game.currentUser.getDtFin() != null){
+					DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					
+					int diffyear = Integer.parseInt(game.currentUser.getDtFin().substring(0, 4))-Integer.parseInt(format.format(new Date()).substring(0, 4));
+					int diffmonth = Integer.parseInt(game.currentUser.getDtFin().substring(5, 7))-Integer.parseInt(format.format(new Date()).substring(5, 7));
+					int diffday = Integer.parseInt(game.currentUser.getDtFin().substring(8, 10))-Integer.parseInt(format.format(new Date()).substring(8, 10));
+					TotDiffEnd = diffday+diffmonth*30+diffyear*365;
+					
+					diffyear = Integer.parseInt(format.format(new Date()).substring(0, 4))-Integer.parseInt(game.currentUser.getDtDebut().substring(0, 4));
+					diffmonth = Integer.parseInt(format.format(new Date()).substring(5, 7))-Integer.parseInt(game.currentUser.getDtDebut().substring(5, 7));
+					diffday = Integer.parseInt(format.format(new Date()).substring(8, 10))-Integer.parseInt(game.currentUser.getDtDebut().substring(8, 10));
+					TotDiffBeg = diffday+diffmonth*30+diffyear*365;
+				}
+				if(game.currentUser.getDtDebut() == null || game.currentUser.getDtFin() == null)
+				{
+					value = "Bonjour "+game.currentUser.getPrenom();
+				}
+				else{
+					if(TotDiffBeg<0){
+						joursBeg="Votre sejour n a pas\n encore debute";
+						joursEnd="";
+					}
+					else{
+						joursBeg="Vous etes ici \ndepuis "+TotDiffBeg+" jours\n";
+						joursEnd="Vous nous quitterez\ndans "+TotDiffEnd+" jours\n";
+					}
+					value = "Bonjour "+game.currentUser.getPrenom()+"\n"+joursBeg+joursEnd;
+				}
+				props.put("message", value);
+				this.drawMessage(props);
+			}
+			
+			if(props.get("type").toString().equals(npc_A2)){
+				String value = "";
+				if(game.ListRepasUser.isEmpty() != true)
+				{
+					value="Vous avez reserve\nles repas suivants:\n";
+					for(Menu menu : game.ListRepasUser){
+						value=value+menu.getNom()+"\n";
+					}
+				}
+				else{
+					value = "Bonjour "+game.currentUser.getPrenom();
+				}
+				props.put("message", value);
+				this.drawMessage(props);
 			}
 		}
 	}

@@ -4,6 +4,7 @@ package com.screens;
 import java.util.ArrayList;
 
 import com.model.User;
+import com.model.Webservice;
 import com.MainRoot.VVAMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -33,6 +34,7 @@ public class LoginScreen implements Screen {
     private Stage stage;
     private TextButton Connexion, Ignorer;
     private Music music;
+    private Webservice Webservice;
     private ArrayList<User> ListUser;
     private TextField login, mdp;
     private ShapeRenderer shapeRenderer;
@@ -43,9 +45,11 @@ public class LoginScreen implements Screen {
 		//Initialisation des sprites à utiliser sur les boutons
 		this.game = game;
 		this.ListUser = ListUser;
+		this.Webservice = new Webservice();
 		new Vector2();
 		this.shapeRenderer = new ShapeRenderer();
 		Background = new Texture("data/img/bg_login.png");
+		game.ListMenus = Webservice.getAllMenu();
 	}
 	
 	@Override
@@ -64,6 +68,7 @@ public class LoginScreen implements Screen {
         	for(User usr: ListUser){
         		if (usr.getId().equals(strLog) && usr.getMdp().equals(strMdp)){
         			game.currentUser = usr;
+        			game.ListRepasUser = Webservice.getUserMenu(usr.getId());
         			this.game.setScreen(new MenuScreen(game));
         		}
         	}
